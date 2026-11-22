@@ -1,0 +1,634 @@
+/* EPIC Pulse UI Kit — data display
+   Layer 7. KPI and stat tiles, chart tiles and their axes, the chart size
+   scale, bar rows, heat grids, tables, and the grid that lays them out.
+   Requires: tokens, reset, base. */
+
+.ep-kpi {
+  background: var(--ep-surface-card);
+  border: 1px solid var(--ep-border-subtle);
+  border-radius: var(--ep-radius-lg);
+  box-shadow: var(--ep-shadow-card);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  text-align: left;
+  transition: border-color .15s ease-out, transform .15s ease-out;
+}
+
+a.ep-kpi:hover, button.ep-kpi:hover { border-color: var(--ep-border-strong); transform: translateY(-1px); }
+
+.ep-kpi__label { font-size: 10.5px; color: var(--ep-text-muted); margin-bottom: 6px; }
+.ep-kpi__value { font-size: 20px; font-weight: 700; color: var(--ep-text-heading); line-height: 1.15; }
+
+.ep-kpi__foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.ep-kpi__delta { font-size: 11px; font-weight: 700; }
+.ep-kpi__spark { flex-shrink: 0; }
+
+/* Chart variant used by the Pulse Home vital-signs row: the value and delta
+   share one line so the chart below gets the full width of the card, and the
+   caption pins to the bottom so cards of unequal caption length still line
+   their charts up. Each card carries a different chart form from  */
+.ep-kpi--chart { gap: 8px; }
+.ep-kpi--chart .ep-kpi__label { margin: 0; }
+
+.ep-kpi__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ep-kpi__chart { display: block; height: 58px; min-width: 0; }
+.ep-kpi__chart svg { display: block; width: 100%; height: 100%; }
+
+.ep-kpi__caption {
+  margin-top: auto;
+  font-size: 9.5px;
+  line-height: 1.35;
+  color: var(--ep-text-muted);
+}
+
+/* mini heat strip — Attendance, three weeks by weekday */
+.ep-kpi__heat { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 2px; height: 58px; }
+.ep-kpi__heat span { border-radius: 2px; background: var(--ep-chart-1); }
+
+@media (max-width: 479px) {
+  .ep-kpi__chart, .ep-kpi__heat { height: 48px; }
+}
+
+/* target-indicator variant used on the dashboard KPI strip */
+.ep-kpi--target { padding: 15px 16px; gap: 8px; }
+.ep-kpi--target .ep-kpi__label { font-size: 11px; margin: 0; }
+.ep-kpi--target .ep-kpi__value { font-size: 24px; }
+.ep-kpi--target .ep-kpi__note { font-size: 10px; color: var(--ep-text-muted); }
+
+.ep-meter {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--ep-surface-inset);
+  position: relative;
+}
+
+/* display:block matters — these are <span>s, and height has no effect on an
+   inline box */
+.ep-meter__fill { display: block; height: 4px; border-radius: 2px; background: var(--ep-accent-primary); }
+.ep-meter__fill--indigo { background: var(--ep-accent-secondary); }
+
+.ep-meter__target {
+  position: absolute;
+  top: -3px;
+  width: 2px;
+  height: 10px;
+  background: var(--ep-text-muted);
+}
+
+/* summary tile (report viewer) */
+.ep-stat {
+  background: var(--ep-surface-card);
+  border: 1px solid var(--ep-border-subtle);
+  border-radius: var(--ep-radius-lg);
+  box-shadow: var(--ep-shadow-card);
+  padding: 15px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.ep-stat__label { font-size: 11px; color: var(--ep-text-muted); }
+.ep-stat__value { font-size: 22px; font-weight: 700; color: var(--ep-text-heading); }
+.ep-stat__note { font-size: 10px; color: var(--ep-text-muted); }
+
+/* the same tile inside a drawer, where 22px numbers and card padding are
+   more than the 376px column can carry */
+.ep-stat--snug { padding: 11px 12px; gap: 4px; box-shadow: none; }
+.ep-stat--snug .ep-stat__value { font-size: 18px; }
+
+/* correlated-metric mini tile */
+.ep-mini {
+  background: var(--ep-surface-card);
+  border: 1px solid var(--ep-border-subtle);
+  border-radius: var(--ep-radius-lg);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.ep-mini__label { font-size: 11px; color: var(--ep-text-muted); }
+.ep-mini__value { font-size: 17px; font-weight: 700; color: var(--ep-text-heading); }
+
+.ep-tile {
+  background: var(--ep-surface-card);
+  border: 1px solid var(--ep-border-subtle);
+  border-radius: var(--ep-radius-lg);
+  box-shadow: var(--ep-shadow-card);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.ep-tile--roomy { padding: 18px 20px; }
+
+.ep-tile__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ep-tile__titles { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.ep-tile__title { font-size: 13.5px; font-weight: 700; color: var(--ep-text-heading); }
+.ep-tile__title--lg { font-size: 15px; }
+a.ep-tile__title:hover { color: var(--ep-accent-primary); }
+.ep-tile__sub { font-size: 10.5px; color: var(--ep-text-muted); }
+
+.ep-tile__actions {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--ep-text-muted);
+  flex-shrink: 0;
+}
+
+.ep-tile__action { display: flex; align-items: center; color: inherit; transition: color .15s ease-out; }
+.ep-tile__action:hover { color: var(--ep-accent-primary); }
+
+.ep-tile__legend {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 10px;
+  color: var(--ep-text-muted);
+  flex-wrap: wrap;
+}
+
+.ep-tile__legend--lg { gap: 20px; font-size: 10.5px; }
+.ep-tile__legend span { display: flex; align-items: center; gap: 5px; }
+.ep-tile__legend .ep-swatch { width: 10px; height: 2.5px; flex-shrink: 0; }
+.ep-tile__legend--lg .ep-swatch { width: 12px; height: 2.6px; }
+.ep-tile__legend .ep-push { margin-left: auto; }
+
+/* Category axis. Equal columns keep every label centred under its own bar
+   and nothing is clipped — the design source's fixed-width flex row cut the last
+   label off once the tile narrowed. */
+.ep-tile__axis {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 4px;
+  font-size: 8.5px;
+  line-height: 1.25;
+  color: var(--ep-text-muted);
+  text-align: center;
+}
+
+.ep-tile__axis > span { overflow: visible; }
+
+/* date / short-label axes have room for the design source's original size */
+.ep-tile__axis--wide { font-size: 9.5px; padding: 0 6px; }
+
+/* eight or more word labels in a narrow tile need a smaller size to stop
+   the columns touching */
+.ep-tile__axis--dense { font-size: 7.5px; letter-spacing: -.1px; }
+
+.ep-tile__axis--grid {
+  grid-auto-flow: row;
+  gap: 8px;
+  font-size: 10px;
+}
+
+.ep-tile__axis--grid7 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.ep-tile__axis--grid6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+
+/* Data-label row that pairs with a category axis.
+   Charts stretch with preserveAspectRatio="none" so they fill their tile at
+   any width — which squashes SVG <text> horizontally. Value and axis labels
+   therefore live in HTML, aligned to the same column grid, and stay crisp at
+   every width. Only very short tokens are left inside the SVGs. */
+.ep-tile__values {
+  display: grid;
+  gap: 8px;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--ep-text-muted);
+  text-align: center;
+}
+
+/* annotation markers pinned over a stretched chart, so their numbers stay
+   readable and keep their link to the legend entries below */
+.ep-chart-stack { position: relative; min-width: 0; }
+
+.ep-chart-annot {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--ep-chart-label) 32%, transparent);
+  color: var(--ep-text-heading);
+  font-size: 9px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* dashed legend swatch, for target / plan / threshold series */
+.ep-tile__legend .ep-swatch--dash {
+  height: 0;
+  border-top: 2px dashed var(--ep-chart-label);
+  background: none;
+}
+
+/* y-axis tick column beside a stretched chart */
+.ep-chart-with-axis { display: flex; gap: 8px; align-items: stretch; min-width: 0; }
+.ep-chart-with-axis .ep-chart { flex: 1; min-width: 0; }
+
+/* ticks are placed at explicit percentages so they line up with the
+   gridlines inside the stretched chart rather than spacing evenly */
+.ep-y-axis {
+  position: relative;
+  width: 30px;
+  flex-shrink: 0;
+  font-size: 10px;
+  color: var(--ep-text-muted);
+  text-align: right;
+}
+
+.ep-y-axis span {
+  position: absolute;
+  right: 0;
+  transform: translateY(-50%);
+  white-space: nowrap;
+}
+
+/* diverging bar rows — signed contribution, built in HTML so the member
+   names and values are real text rather than distorted SVG labels */
+.ep-diverge { display: flex; flex-direction: column; gap: 10px; }
+
+.ep-diverge__row {
+  display: grid;
+  grid-template-columns: 78px minmax(0, 1fr) 46px;
+  gap: 10px;
+  align-items: center;
+}
+
+.ep-diverge__label { font-size: 10.5px; color: var(--ep-text-body); text-align: right; }
+
+.ep-diverge__track {
+  position: relative;
+  height: 18px;
+  background: var(--ep-surface-inset);
+  border-radius: 4px;
+}
+
+.ep-diverge__zero {
+  position: absolute;
+  left: 50%;
+  top: -3px;
+  bottom: -3px;
+  width: 1px;
+  background: var(--ep-border-strong);
+}
+
+.ep-diverge__bar { position: absolute; top: 0; height: 18px; border-radius: 3px; }
+.ep-diverge__val { font-size: 10.5px; font-weight: 700; color: var(--ep-text-heading); }
+
+@media (max-width: 479px) {
+  .ep-diverge__row { grid-template-columns: 66px minmax(0, 1fr) 42px; gap: 7px; }
+  .ep-diverge__label { font-size: 9.5px; }
+}
+
+@media (max-width: 767px) {
+  .ep-tile__axis--grid { font-size: 9px; gap: 5px; }
+}
+
+@media (max-width: 767px) {
+  .ep-tile { padding: 14px; }
+  .ep-tile--roomy { padding: 14px; }
+  .ep-tile__title--lg { font-size: 14px; }
+  .ep-tile__axis { font-size: 8px; gap: 3px; }
+  .ep-tile__axis--wide { font-size: 8.5px; padding: 0; }
+}
+
+/* Column-chart axis.
+   A plain edge-to-edge 1fr grid centres the first and last labels short of
+   their own bars, because the columns are drawn inside the SVG's plot band
+   rather than against the tile's edges. Every chart stretches to its tile
+   with preserveAspectRatio="none", so one viewBox unit is a fixed percentage
+   of the tile at any width — which means the band can be reproduced in CSS
+   and the label slots inside it will track the bars as the tile resizes.
+
+   Each axis sets its own two gutters, measured off the chart it belongs to:
+     --axis-l = (band start - viewBox min-x) / viewBox width
+     --axis-r = (viewBox min-x + width - band end) / viewBox width
+   where the band runs half a slot outside the first and last bar centre.
+   Breathing room between labels comes from cell padding, never a grid gap:
+   a gap would eat into the slots and pull every centre inward.
+
+   A label row also reads as part of the plot rather than as the next thing
+   in the tile, so it pulls back most of the tile's 12px flex gap and sits
+   just under the baseline. That margin rides on the modifier instead of a
+   `.ep-chart + .ep-tile__axis` sibling rule because the drill-down's grain tabs
+   leave a display:none panel between a chart and its own axis, which no
+   sibling selector can see past.
+
+   Declared after the responsive block so it all holds at the widths where
+   --wide drops its own padding. */
+.ep-tile__axis--bars {
+  column-gap: 0;
+  margin-top: -8px;
+  padding-left: var(--ep-axis-l, 0);
+  padding-right: var(--ep-axis-r, 0);
+}
+
+.ep-tile__axis--bars > span { padding-inline: 3px; }
+
+/* On a phone a twelve-day axis is down to ~29px a slot, where the cell
+   padding is enough to wrap a two-word date onto a second line. The slots
+   are already narrow enough to keep the labels apart. */
+@media (max-width: 767px) {
+  .ep-tile__axis--bars > span { padding-inline: 0; }
+}
+
+/* Clears the HTML y-axis tick column (30px plus the 8px .ep-chart-with-axis
+   gap) so the label row's own width matches the stretched SVG beside it —
+   which is what the gutters above are measured against. */
+.ep-tile__axis--inset { margin-left: 38px; }
+
+.ep-chart { width: 100%; min-width: 0; }
+.ep-chart > svg { display: block; width: 100%; height: 100%; }
+
+.ep-chart--xs { height: 90px; }
+.ep-chart--sm { height: 112px; }
+.ep-chart--md { height: 180px; }
+.ep-chart--lg { height: 196px; }
+.ep-chart--xl { height: 220px; }
+.ep-chart--2xl { height: 250px; }
+.ep-chart--bars { height: 283px; }
+
+@media (max-width: 1023px) {
+  .ep-chart--bars { height: 220px; }
+  .ep-chart--2xl { height: 210px; }
+  .ep-chart--xl { height: 190px; }
+}
+
+@media (max-width: 767px) {
+  .ep-chart--bars { height: 180px; }
+  .ep-chart--2xl { height: 170px; }
+  .ep-chart--xl { height: 160px; }
+  .ep-chart--lg { height: 150px; }
+  .ep-chart--md { height: 140px; }
+}
+
+.ep-chart-donut { flex-shrink: 0; }
+.ep-chart-donut svg { width: 150px; height: 150px; display: block; }
+
+@media (max-width: 479px) {
+  .ep-chart-donut svg { width: 120px; height: 120px; }
+}
+
+/* legend list beside a donut */
+.ep-legend-list { display: flex; flex-direction: column; gap: 9px; flex: 1; min-width: 0; }
+
+.ep-legend-list__row { display: flex; align-items: center; gap: 9px; }
+.ep-legend-list__dot { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+.ep-legend-list__name { flex: 1; font-size: 11.5px; color: var(--ep-text-body); min-width: 0; }
+.ep-legend-list__val { font-size: 11.5px; font-weight: 700; color: var(--ep-text-heading); }
+
+.ep-bar-rows { display: flex; flex-direction: column; gap: 11px; }
+.ep-bar-rows--tight { gap: 9px; }
+.ep-bar-rows--roomy { gap: 12px; }
+
+.ep-bar-row { display: flex; align-items: center; gap: 12px; }
+.ep-bar-row__label { font-size: 11px; color: var(--ep-text-body); flex-shrink: 0; }
+.ep-bar-row__label--w96 { width: 96px; }
+.ep-bar-row__label--w52 { width: 52px; }
+.ep-bar-row__label--w104 { width: 104px; }
+.ep-bar-row__label--w150 { width: 150px; }
+.ep-bar-row__label.ep-is-strong { font-weight: 700; color: var(--ep-text-heading); }
+
+.ep-bar-row__track {
+  flex: 1;
+  height: 22px;
+  border-radius: 4px;
+  background: var(--ep-surface-inset);
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.ep-bar-row__track--sm { height: 20px; }
+.ep-bar-row__track--xs { height: 16px; overflow: visible; }
+.ep-bar-row__fill { display: block; height: 100%; border-radius: 4px; background: var(--ep-chart-1); }
+.ep-bar-row__seg { display: block; position: absolute; top: 0; height: 100%; border-radius: 4px; }
+
+.ep-bar-row__value { font-size: 11px; font-weight: 700; color: var(--ep-text-heading); text-align: right; flex-shrink: 0; }
+.ep-bar-row__value--w34 { width: 34px; }
+.ep-bar-row__value--w44 { width: 44px; }
+.ep-bar-row__value--w46 { width: 46px; }
+.ep-bar-row__delta { font-size: 11px; text-align: right; width: 60px; flex-shrink: 0; }
+.ep-bar-row__spark { flex-shrink: 0; }
+.ep-bar-row__tag { position: absolute; left: 63%; top: 1px; font-size: 9.5px; color: var(--ep-text-muted); white-space: nowrap; }
+
+.ep-bar-scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9.5px;
+  color: var(--ep-text-muted);
+}
+
+@media (max-width: 767px) {
+  .ep-bar-row { gap: 8px; }
+  .ep-bar-row__label--w96,
+  .ep-bar-row__label--w104,
+  .ep-bar-row__label--w150 { width: 82px; }
+  .ep-bar-row__spark { display: none; }
+  .ep-bar-row__delta { width: 52px; }
+}
+
+.ep-heat { display: flex; flex-direction: column; gap: 7px; }
+
+.ep-heat__row {
+  display: grid;
+  grid-template-columns: 64px repeat(8, minmax(0, 1fr));
+  gap: 6px;
+  align-items: center;
+}
+
+.ep-heat__head { font-size: 9px; color: var(--ep-text-muted); }
+.ep-heat__label { font-size: 10px; color: var(--ep-text-body); }
+.ep-heat__label.ep-is-strong { font-weight: 700; color: var(--ep-text-heading); }
+.ep-heat__cell { height: 26px; border-radius: 4px; background: var(--ep-chart-1); }
+
+.ep-heat__key { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+.ep-heat__key span:first-child,
+.ep-heat__key span:last-child { font-size: 9.5px; color: var(--ep-text-muted); }
+.ep-heat__ramp {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, rgba(61, 134, 209, .15), #1d306d);
+}
+
+@media (max-width: 767px) {
+  .ep-heat__row { grid-template-columns: 46px repeat(8, minmax(0, 1fr)); gap: 4px; }
+  .ep-heat__cell { height: 20px; }
+  .ep-heat__label, .ep-heat__head { font-size: 8.5px; }
+}
+
+.ep-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.ep-table-wrap--card {
+  background: var(--ep-surface-card);
+  border: 1px solid var(--ep-border-subtle);
+  border-radius: var(--ep-radius-lg);
+  box-shadow: var(--ep-shadow-card);
+}
+
+.ep-dtable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: inherit;
+}
+
+.ep-dtable--wide { min-width: 980px; }
+.ep-dtable--mid { min-width: 720px; }
+.ep-dtable--narrow { min-width: 520px; }
+
+.ep-dtable thead th {
+  /* matches the row font size: the header is read as part of the column, not
+     as a caption above it. Weight and letter-spacing still separate it. */
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .7px;
+  color: var(--ep-text-muted);
+  text-align: left;
+  padding: 11px 16px;
+  white-space: nowrap;
+  background: var(--ep-surface-inset);
+  border-bottom: 1px solid var(--ep-border-subtle);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.ep-dtable--plain thead th { background: transparent; padding: 0 8px 9px 0; }
+.ep-dtable--plain tbody td { padding: 9px 8px 9px 0; }
+.ep-dtable--plain tbody td:last-child,
+.ep-dtable--plain thead th:last-child { padding-right: 0; }
+.ep-dtable--plain tbody tr td { border-top: 1px solid var(--ep-border-subtle); }
+
+.ep-dtable tbody td {
+  font-size: 11px;
+  color: var(--ep-text-body);
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--ep-border-subtle);
+  vertical-align: middle;
+}
+
+.ep-dtable tbody tr:last-child td { border-bottom: 0; }
+.ep-dtable tbody tr.ep-is-hoverable:hover td { background: var(--ep-surface-inset); }
+.ep-dtable tbody tr[data-ep-order] { cursor: pointer; }
+
+.ep-dtable tbody tr.ep-is-selected-row td {
+  background: color-mix(in oklab, var(--ep-accent-primary) 10%, transparent);
+  box-shadow: inset 2px 0 0 var(--ep-accent-primary);
+}
+
+.ep-dtable .ep-cell-strong { font-size: 11.5px; font-weight: 700; color: var(--ep-text-heading); }
+.ep-dtable .ep-cell-num { text-align: right; white-space: nowrap; }
+.ep-dtable .ep-cell-mid { text-align: center; }
+.ep-dtable .ep-cell-note { color: var(--ep-text-muted); }
+
+.ep-dtable__group td {
+  padding: 9px 16px;
+  background: color-mix(in oklab, var(--ep-accent-primary) 6%, transparent);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ep-text-heading);
+}
+
+.ep-dtable__total td {
+  padding: 12px 16px;
+  background: var(--ep-surface-inset);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ep-text-heading);
+  border-bottom: 0;
+}
+
+.ep-cell-late {
+  display: inline-block;
+  min-width: 44px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--ep-accent-fill-secondary);
+  border-radius: 6px;
+  padding: 3px 6px;
+  text-align: center;
+}
+
+.ep-cell-late--quiet { color: var(--ep-text-heading); background: var(--ep-surface-inset); }
+.ep-cell-late--plain { background: transparent; color: var(--ep-text-body); font-weight: 400; }
+
+.ep-grid { display: grid; gap: 14px; min-width: 0; }
+.ep-grid--12 { gap: 12px; }
+.ep-grid--16 { gap: 16px; }
+
+.ep-grid--kpi6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.ep-grid--kpi5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.ep-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.ep-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.ep-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+@media (max-width: 1439px) {
+  .ep-grid--kpi6 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 1199px) {
+  .ep-grid--kpi5 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .ep-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ep-grid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 767px) {
+  .ep-grid--kpi6, .ep-grid--kpi5 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ep-grid--4, .ep-grid--3, .ep-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 479px) {
+  /* KPI tiles hold at two across on a phone — one-per-row turns the vital
+     signs row into a long scroll instead of a glance */
+  .ep-grid--4, .ep-grid--3, .ep-grid--2 { grid-template-columns: minmax(0, 1fr); }
+  .ep-grid--kpi6, .ep-grid--kpi5 { gap: 10px; }
+  .ep-kpi { padding: 12px; }
+  .ep-kpi__value { font-size: 18px; }
+  .ep-kpi--target .ep-kpi__value { font-size: 20px; }
+  .ep-kpi__foot { flex-direction: column; align-items: flex-start; gap: 6px; }
+}
+
+@media (max-width: 359px) {
+  .ep-grid--kpi6, .ep-grid--kpi5 { grid-template-columns: minmax(0, 1fr); }
+}

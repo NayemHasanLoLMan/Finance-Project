@@ -1,0 +1,165 @@
+/* EPIC Pulse UI Kit v1.0.0 — design tokens
+   Carried over verbatim from the Epic Pulse design system's token files.
+   Additions are limited to (a) the chart series palette, which the design source
+   hard-coded inline per chart, and (b) the paper surface the report document
+   view keeps in both themes. Both are flagged below. */
+
+
+:root {
+  /* base palette — the product’s source values */
+  --pu-white: #fff;
+  --pu-gray-900: #1a202c;
+  --pu-gray-800: #2d3748;
+  --pu-gray-700: #4a5568;
+  --pu-gray-600: #718096;
+  --pu-gray-500: #a0aec0;
+  --pu-gray-400: #c4c4c4;
+  --pu-gray-300: #cbd5e0;
+  --pu-gray-200: #e2e8f0;
+  --pu-gray-100: #f8f9fa;
+  --pu-black: #000;
+  --pu-teal: #4fd1c5;
+  --pu-indigo: #1d306d;
+  --pu-blue: #0056b3;
+  --pu-blue-bright: #0056b3;
+  --pu-pink: #ff61f6;
+  --pu-navy-900: #1d306d;
+  --pu-navy-800: #1d306d;
+  --pu-navy-700: #0056b3;
+  --pu-blue-tint: color-mix(in oklab, #0056b3 40%, white);
+
+  /* --- semantic aliases — how the dashboard actually uses the palette */
+  --ep-surface-app: var(--pu-gray-100);
+  --ep-surface-card: var(--pu-white);
+  --ep-surface-sidebar-top: var(--pu-navy-900);
+  --ep-surface-sidebar-bottom: var(--pu-navy-700);
+  --ep-surface-help-card: var(--pu-blue);
+  --ep-text-heading: var(--pu-gray-800);
+  --ep-text-body: var(--pu-gray-700);
+  /* Not --pu-gray-500: the source palette's grey is 2.26:1 on white, which
+     is below the large-text floor, and this token is set at 10-12.5px.
+     Darkened to 5.18:1 and still a clear step above --ep-text-body. */
+  --ep-text-muted: #626d86;
+  --ep-text-on-dark: var(--pu-white);
+  --ep-text-on-accent: var(--pu-white);
+  --ep-accent-primary: var(--pu-blue);
+  --ep-accent-secondary: var(--pu-indigo);
+
+  /* The accent has two jobs and they pull apart in the dark theme: as INK it
+     has to be light enough to read on a dark ground, and as GROUND it has to
+     be dark enough to carry white text. In the light theme one value does
+     both, so these are the same colour; the dark block is where they part. */
+  --ep-accent-fill: var(--ep-accent-primary);
+  --ep-accent-fill-secondary: var(--ep-accent-secondary);
+  --ep-accent-tertiary: var(--pu-blue-tint);
+  --ep-status-positive: var(--pu-blue);
+  --ep-status-negative: #5a6a85;   /* 5.48 on white, 5.19 on the inset ground */
+  --ep-status-info: var(--pu-indigo);
+  --ep-border-subtle: var(--pu-gray-200);
+  --ep-border-strong: var(--pu-gray-300);
+  --ep-surface-inset: var(--pu-gray-100);
+  --ep-shadow-card: 0 3.5px 5.5px 0 rgba(0, 0, 0, .02);
+  --ep-shadow-card-soft: 0 0 0 0 rgba(0, 0, 0, .05);
+
+  /* --- typography */
+  --ep-font-body: Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --ep-font-display: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --ep-font-accent: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --ep-font-exo: Exo, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --ep-text-3xs: 10px;
+  --ep-text-2xs: 12px;
+  --ep-text-xs: 13px;
+  --ep-text-sm: 14px;
+  --ep-text-md: 16px;
+  --ep-text-lg: 20px;
+  --ep-text-xl: 27px;
+  --ep-text-2xl: 30px;
+  --ep-text-3xl: 40px;
+  --ep-text-4xl: 50px;
+  --ep-text-5xl: 60px;
+  --ep-text-6xl: 90px;
+  --ep-weight-regular: 400;
+  --ep-weight-bold: 700;
+  --ep-leading-tight: 1.4;
+  --ep-leading-normal: 1.5;
+
+  /* --- spacing & radius — irregular, content-driven scale from the source */
+  --ep-space-1: 4px;
+  --ep-space-2: 8px;
+  --ep-space-3: 12px;
+  --ep-space-4: 16px;
+  --ep-space-5: 19px;
+  --ep-space-6: 24px;
+  --ep-space-7: 31.5px;
+  --ep-space-8: 40px;
+  --ep-radius-sm: 4px;
+  --ep-radius-md: 12px;
+  --ep-radius-lg: 15px;
+  --ep-radius-pill: 9999px;
+  --ep-radius-circle: 50%;
+
+  /* --- interaction */
+  --ep-focus-ring: 0 0 0 3px color-mix(in oklab, var(--ep-accent-primary) 22%, transparent);
+
+  /* ADDITION 1 — chart series palette.
+     The design-system readme lists "chart series palette" as a known gap;
+     the design source hard-coded these six values inline on every chart. They are
+     lifted here unchanged so every chart in the prototype reads from one
+     source. Same values in both themes, exactly as the design source had them. */
+  --ep-chart-1: #3d86d1;
+  --ep-chart-2: #24407f;
+  --ep-chart-3: #8ab6e2;
+  --ep-chart-4: #b8cfe9;
+  --ep-chart-5: #8892ac;
+  --ep-chart-6: #1d306d;
+  --ep-chart-accent: #0056b3;
+  --ep-chart-label: #8892ac;
+  --ep-chart-band: rgba(61, 134, 209, .10);
+
+  /* ADDITION 2 — paper surface. A report is a document: the document view
+     keeps a paper surface in both themes, so these deliberately
+     do not flip with the theme. */
+  --ep-paper-tray: #f2f3f5;
+  --ep-paper-sheet: #fff;
+  --ep-paper-rule: #e2e8f0;
+  --ep-paper-rule-soft: #f1f3f6;
+  --ep-paper-ink: #1a202c;
+  --ep-paper-body: #2d3748;
+  --ep-paper-muted: #5f6b80;   /* 5.38 on the sheet; the column heads are 7px */
+  --ep-paper-faint: #66718a;   /* 4.89 — the footer sets this as 7px text */
+  --ep-paper-brand: #1d306d;
+
+  /* --- brand dark surface — sidebar and auth panel keep this in both themes */
+  --ep-brand-gradient: linear-gradient(180deg, #1d306d 0%, #0056b3 100%);
+  --ep-brand-gradient-diag: linear-gradient(160deg, #1d306d 0%, #0056b3 100%);
+  --ep-brand-gradient-header: linear-gradient(135deg, #1d306d, #0056b3);
+
+  /* --- shell metrics */
+  --ep-sidebar-w: 248px;
+  --ep-sidebar-rail-w: 76px;
+  --ep-topbar-h: 66px;
+}
+
+/* --- dark theme — verbatim from tokens/dark-theme.css.
+   Applied by js/ep-theme.js as data-theme="dark" on <html>. */
+[data-theme="dark"] {
+  --ep-surface-app: #0b1220;
+  --ep-surface-card: #121c33;
+  --ep-text-heading: #f4f6fb;
+  --ep-text-body: #c4cce3;
+  /* 6.16:1 on the inset surface, which is the tightest pairing in the
+     dark theme. The value it replaced passed at 4.89 and read as thin. */
+  --ep-text-muted: #9aa5c0;
+  --ep-text-on-dark: #f4f6fb;
+  --ep-border-subtle: #26314e;
+  --ep-border-strong: #38456a;
+  --ep-surface-inset: #1a2540;
+  --ep-accent-primary: color-mix(in oklab, var(--pu-blue) 65%, white 35%);
+  /* ground rather than ink: white text needs 4.5 on it, and it still needs
+     3 against the card it sits on */
+  --ep-accent-fill: #3d6fb5;
+  --ep-accent-fill-secondary: #5b6ba0;
+  --ep-status-negative: #8e9ab2;
+  --ep-accent-secondary: color-mix(in oklab, var(--pu-indigo) 55%, white 45%);
+  --ep-shadow-card: 0 8px 20px rgba(0, 0, 0, .35);
+}

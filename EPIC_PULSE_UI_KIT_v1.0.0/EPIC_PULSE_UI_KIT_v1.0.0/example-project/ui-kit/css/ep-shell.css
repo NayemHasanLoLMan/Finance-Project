@@ -1,0 +1,684 @@
+/* EPIC Pulse — global shell
+   Sidebar · content topbar · assistant FAB · footer
+   build strip. Markup is rendered by js/ep-shell.js so every page
+   inherits the same chrome. */
+
+.ep-app {
+  display: flex;
+  min-height: 100vh;
+  /* stretch so full-height screens (the dashboard builder) can fill the
+     viewport; the sidebar sets its own height:100vh so it is unaffected */
+  align-items: stretch;
+}
+
+.ep-app__main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.ep-page {
+  padding: 22px 24px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  flex: 1;
+  min-width: 0;
+}
+
+.ep-page--flush { padding: 0; }
+.ep-page--tight { gap: 16px; padding: 18px 24px 32px; }
+
+@media (max-width: 767px) {
+  .ep-page { padding: 16px 14px 96px; gap: 14px; }
+  .ep-page--tight { padding: 14px 14px 96px; }
+}
+
+/* Brand dark surface, unchanged in both themes. */
+
+.ep-sidebar {
+  width: var(--ep-sidebar-w);
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  box-sizing: border-box;
+  background: var(--ep-brand-gradient);
+  padding: 22px 14px 18px;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--ep-font-exo), Helvetica, Arial, sans-serif;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, .25) transparent;
+  z-index: 40;
+  transition: width .18s ease-out, transform .18s ease-out;
+}
+
+.ep-sidebar::-webkit-scrollbar { width: 6px; }
+.ep-sidebar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, .22); border-radius: 3px; }
+
+/* brand block */
+.ep-sidebar__brand {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 0 6px 20px;
+}
+
+.ep-sidebar__brand-link {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+
+.ep-sidebar__logo {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  object-position: left;
+}
+
+.ep-sidebar__logo--rail { display: none; height: 26px; }
+
+.ep-sidebar__version {
+  font-size: 10px;
+  color: rgba(255, 255, 255, .55);
+  letter-spacing: .4px;
+  padding-left: 2px;
+  white-space: nowrap;
+}
+
+.ep-sidebar__collapse {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  color: #fff;
+  opacity: .55;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: opacity .15s ease-out, background .15s ease-out;
+}
+
+.ep-sidebar__collapse:hover { opacity: 1; background: rgba(255, 255, 255, .12); }
+
+/* nav */
+.ep-sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 0 auto;
+}
+
+.ep-nav-group {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  /* measured down the whole gradient, not at its darkest end: .42 reads
+     2.48 against the blue the sidebar finishes in */
+  color: rgba(255, 255, 255, .78);
+  padding: 16px 12px 6px;
+  white-space: nowrap;
+}
+
+.ep-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 9px 12px;
+  border-radius: var(--ep-radius-md);
+  background: transparent;
+  color: #fff;
+  text-align: left;
+  width: 100%;
+  transition: background .15s ease-out;
+}
+
+.ep-nav-item:hover { background: rgba(255, 255, 255, .09); color: #fff; }
+.ep-nav-item.ep-is-active { background: rgba(255, 255, 255, .18); }
+
+.ep-nav-item__icon {
+  width: 17px;
+  height: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+  opacity: .86;
+}
+
+.ep-nav-item__label {
+  font-size: 13px;
+  flex: 1;
+  color: #fff;
+  font-weight: 400;
+  opacity: .86;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ep-nav-item.ep-is-active .ep-nav-item__icon,
+.ep-nav-item.ep-is-active .ep-nav-item__label { opacity: 1; }
+.ep-nav-item.ep-is-active .ep-nav-item__label { font-weight: 700; }
+
+.ep-nav-item__badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: #0b1220;
+  background: #fff;
+  border-radius: 9px;
+  padding: 2px 6px;
+  min-width: 16px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* the whole group row is the control now, so the chevron is decoration */
+.ep-nav-item--group { cursor: pointer; }
+
+.ep-nav-item__chevron {
+  opacity: .5;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  pointer-events: none;
+  transition: transform .18s ease-out, opacity .15s ease-out;
+}
+
+.ep-nav-item--group:hover .ep-nav-item__chevron { opacity: .9; }
+.ep-nav-item[aria-expanded="true"] .ep-nav-item__chevron { transform: rotate(180deg); }
+
+.ep-nav-parent { display: contents; }
+
+.ep-nav-sub {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+
+.ep-nav-subitem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 12px 7px 32px;
+  border-radius: 10px;
+  background: transparent;
+  color: #fff;
+  transition: background .15s ease-out;
+}
+
+.ep-nav-subitem:hover { background: rgba(255, 255, 255, .09); color: #fff; }
+.ep-nav-subitem.ep-is-active { background: rgba(255, 255, 255, .14); }
+
+.ep-nav-subitem__icon {
+  width: 15px;
+  height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+  opacity: .78;
+}
+
+.ep-nav-subitem__label {
+  font-size: 12.5px;
+  flex: 1;
+  color: #fff;
+  font-weight: 400;
+  opacity: .78;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ep-nav-subitem.ep-is-active .ep-nav-subitem__icon,
+.ep-nav-subitem.ep-is-active .ep-nav-subitem__label { opacity: 1; }
+.ep-nav-subitem.ep-is-active .ep-nav-subitem__label { font-weight: 700; }
+
+/* account + sign out */
+.ep-sidebar__foot {
+  border-top: 1px solid rgba(255, 255, 255, .14);
+  margin-top: 12px;
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.ep-sidebar__account {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px;
+  border-radius: 10px;
+  width: 100%;
+  text-align: left;
+  transition: background .15s ease-out;
+}
+
+.ep-sidebar__account:hover { background: rgba(255, 255, 255, .09); }
+
+.ep-sidebar__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .2);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.ep-sidebar__account-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.ep-sidebar__account-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ep-sidebar__account-role {
+  font-size: 10.5px;
+  color: rgba(255, 255, 255, .55);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ep-sidebar__account-chevron { display: flex; color: #fff; opacity: .6; flex-shrink: 0; }
+
+.ep-sidebar__signout {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 8px 12px;
+  border-radius: var(--ep-radius-md);
+  width: 100%;
+  transition: background .15s ease-out;
+}
+
+.ep-sidebar__signout:hover { background: rgba(255, 255, 255, .09); }
+.ep-sidebar__signout .ep-nav-item__icon { opacity: .7; }
+.ep-sidebar__signout span:last-child { font-size: 12.5px; color: rgba(255, 255, 255, .72); white-space: nowrap; }
+
+@media (min-width: 1024px) {
+  .ep-app--rail .ep-sidebar { width: var(--ep-sidebar-rail-w); padding-left: 10px; padding-right: 10px; }
+  .ep-app--rail .ep-sidebar__logo { display: none; }
+  .ep-app--rail .ep-sidebar__logo--rail { display: block; margin: 0 auto; }
+  .ep-app--rail .ep-sidebar__version,
+  .ep-app--rail .ep-nav-item__badge,
+  .ep-app--rail .ep-nav-item__chevron { display: none; }
+
+  /* The labels inside a link or a button are HIDDEN, not removed: display:none
+     takes a name out of the accessibility tree, and a railed sidebar would
+     then be a column of unnamed links — remembered across visits, so a reader
+     can arrive with it already collapsed. Out of flow, so the rail lays out
+     exactly as it did when these were display:none. */
+  .ep-app--rail .ep-nav-item__label,
+  .ep-app--rail .ep-nav-subitem__label,
+  .ep-app--rail .ep-sidebar__account-text,
+  .ep-app--rail .ep-sidebar__signout span:last-child {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .ep-app--rail .ep-sidebar__brand { flex-direction: column; align-items: center; gap: 12px; padding: 0 0 16px; }
+  .ep-app--rail .ep-sidebar__brand-link { align-items: center; flex: 0 0 auto; }
+  .ep-app--rail .ep-nav-group {
+    height: 1px;
+    padding: 10px 0 0;
+    margin: 6px 8px 6px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, .14);
+    color: transparent;
+  }
+  .ep-app--rail .ep-nav-item,
+  .ep-app--rail .ep-nav-subitem { justify-content: center; padding: 10px 0; gap: 0; }
+  .ep-app--rail .ep-nav-sub { display: none; }
+
+  /* Railed, the sub-list is hidden, so the group row carries the selected
+     state on its behalf — otherwise a dashboard page would show nothing
+     selected at all. Expanded, the group row is never highlighted. */
+  .ep-app--rail .ep-nav-item--group.ep-is-child-active { background: rgba(255, 255, 255, .18); }
+  .ep-app--rail .ep-nav-item--group.ep-is-child-active .ep-nav-item__icon { opacity: 1; }
+  .ep-app--rail .ep-sidebar__account,
+  .ep-app--rail .ep-sidebar__signout { justify-content: center; padding: 8px 0; gap: 0; }
+  .ep-app--rail .ep-sidebar__collapse svg { transform: rotate(180deg); }
+}
+
+.ep-sidebar__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 18, 32, .55);
+  z-index: 35;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease-out;
+}
+
+@media (max-width: 1023px) {
+  .ep-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: min(288px, 86vw);
+    transform: translateX(-100%);
+    box-shadow: 0 0 40px rgba(0, 0, 0, .4);
+  }
+  .ep-sidebar.ep-is-open { transform: none; }
+  .ep-sidebar__collapse { display: none; }
+  .ep-app.ep-nav-open .ep-sidebar__backdrop { opacity: 1; pointer-events: auto; }
+}
+
+.ep-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--ep-surface-card);
+  border-bottom: 1px solid var(--ep-border-subtle);
+  padding: 0 24px;
+  min-height: var(--ep-topbar-h);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-family: var(--ep-font-exo), Helvetica, Arial, sans-serif;
+}
+
+.ep-topbar__burger {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--ep-border-subtle);
+  background: var(--ep-surface-inset);
+  color: var(--ep-text-body);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ep-topbar__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.ep-topbar__crumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  letter-spacing: .7px;
+  color: var(--ep-text-muted);
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ep-topbar__crumb a { color: inherit; }
+.ep-topbar__crumb a:hover { color: var(--ep-accent-primary); }
+
+.ep-topbar__title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ep-text-heading);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ep-topbar__search {
+  position: relative;
+  width: 230px;
+  flex-shrink: 0;
+}
+
+.ep-topbar__search svg {
+  position: absolute;
+  left: 13px;
+  top: 10px;
+  color: var(--ep-text-muted);
+  pointer-events: none;
+}
+
+.ep-topbar__search input {
+  box-sizing: border-box;
+  width: 100%;
+  background: var(--ep-surface-inset);
+  border: 1px solid var(--ep-border-subtle);
+  border-radius: 20px;
+  height: 34px;
+  padding: 0 14px 0 34px;
+  font-size: 12px;
+  color: var(--ep-text-body);
+}
+
+/* the compact search affordance takes over when the field is hidden */
+.ep-topbar__search-btn { display: none; }
+
+.ep-topbar__period {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--ep-surface-inset);
+  border: 1px solid var(--ep-border-subtle);
+  border-radius: var(--ep-radius-md);
+  padding: 8px 12px;
+  flex-shrink: 0;
+  transition: border-color .15s ease-out;
+}
+
+.ep-topbar__period:hover { border-color: var(--ep-border-strong); }
+.ep-topbar__period-label { font-size: 12px; font-weight: 700; color: var(--ep-text-heading); white-space: nowrap; }
+.ep-topbar__period-icon { display: flex; color: var(--ep-text-muted); flex-shrink: 0; }
+.ep-topbar__period > svg { color: var(--ep-text-muted); flex-shrink: 0; }
+
+.ep-topbar__fresh {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: color-mix(in oklab, var(--ep-accent-primary) 12%, transparent);
+  border-radius: var(--ep-radius-md);
+  padding: 8px 12px;
+  flex-shrink: 0;
+}
+
+.ep-topbar__fresh-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ep-accent-primary); flex-shrink: 0; }
+.ep-topbar__fresh-text { font-size: 11.5px; color: var(--ep-text-body); white-space: nowrap; }
+.ep-topbar__fresh button { color: var(--ep-accent-primary); display: flex; align-items: center; }
+
+.ep-topbar__tools { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+.ep-icon-btn {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--ep-surface-inset);
+  border: 1px solid var(--ep-border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ep-text-body);
+  flex-shrink: 0;
+  transition: border-color .15s ease-out, background .15s ease-out;
+}
+
+.ep-icon-btn:hover { border-color: var(--ep-border-strong); }
+.ep-icon-btn--accent { color: var(--ep-accent-primary); }
+
+/* the workspace switcher carries a two-letter mark instead of a glyph, so it
+   names the workspace you are in as well as offering the way out */
+.ep-icon-btn--mark {
+  background: var(--ep-accent-fill-secondary);
+  border-color: transparent;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+
+.ep-icon-btn--mark:hover { border-color: var(--ep-accent-primary); }
+
+.ep-icon-btn__badge {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  min-width: 15px;
+  height: 15px;
+  border-radius: 8px;
+  background: var(--ep-accent-fill);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+}
+
+/* topbar at narrower widths */
+@media (max-width: 1279px) {
+  .ep-topbar { gap: 14px; }
+  .ep-topbar__search { width: 170px; }
+}
+
+@media (max-width: 1119px) {
+  .ep-topbar__fresh-text { display: none; }
+  .ep-topbar__fresh { padding: 8px 10px; }
+}
+
+@media (max-width: 1023px) {
+  .ep-topbar { padding: 0 14px; gap: 12px; }
+  .ep-topbar__burger { display: flex; }
+  .ep-topbar__search { display: none; }
+  .ep-topbar__search-btn { display: flex; }
+}
+
+@media (max-width: 767px) {
+  .ep-topbar { min-height: 58px; gap: 10px; }
+  .ep-topbar__title { font-size: 15px; }
+  .ep-topbar__crumb { font-size: 9px; }
+  /* the period selector cascades into every drill level, so it stays
+     reachable at every width — it just loses its label */
+  .ep-topbar__period-label { display: none; }
+  .ep-topbar__period { padding: 8px 9px; }
+  .ep-topbar__fresh { display: none; }
+  .ep-topbar__tools { gap: 7px; }
+  .ep-topbar__tools .ep-icon-btn { width: 32px; height: 32px; }
+}
+
+.ep-page-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ep-page-head__actions { display: flex; gap: 9px; flex-wrap: wrap; }
+
+@media (max-width: 767px) {
+  .ep-page-head { align-items: flex-start; flex-direction: column; gap: 12px; }
+  .ep-page-head__actions { width: 100%; }
+}
+
+.ep-toolbar {
+  background: var(--ep-surface-card);
+  border-bottom: 1px solid var(--ep-border-subtle);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ep-toolbar--tight { padding: 11px 24px; gap: 10px; }
+.ep-toolbar--tabs { padding: 0 24px; gap: 4px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+.ep-toolbar--tabs::-webkit-scrollbar { display: none; }
+
+@media (max-width: 767px) {
+  .ep-toolbar { padding: 10px 14px; gap: 8px; }
+  .ep-toolbar--tight { padding: 10px 14px; }
+  .ep-toolbar--tabs { padding: 0 14px; }
+}
+
+.ep-fab-dock {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 45;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ep-fab-bubble {
+  background: var(--ep-surface-card);
+  border: 1px solid var(--ep-border-subtle);
+  border-radius: var(--ep-radius-md);
+  box-shadow: var(--ep-shadow-card);
+  padding: 9px 12px;
+  font-size: 11.5px;
+  color: var(--ep-text-body);
+  max-width: 210px;
+}
+
+
+.ep-fab {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--ep-accent-primary);
+  color: var(--ep-text-on-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 22px rgba(0, 86, 179, .4);
+  flex-shrink: 0;
+  transition: transform .15s ease-out;
+}
+
+.ep-fab:hover { transform: translateY(-2px); }
+
+@media (max-width: 767px) {
+  .ep-fab-dock { right: 14px; bottom: 14px; }
+  .ep-fab { width: 46px; height: 46px; }
+  /* the prompt bubble would sit on top of page content at phone width */
+  .ep-fab-bubble { display: none; }
+}

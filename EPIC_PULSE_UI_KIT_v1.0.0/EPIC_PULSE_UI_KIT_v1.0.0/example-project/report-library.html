@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Report library · EPIC Pulse</title>
+<link rel="icon" href="favicon.svg">
+
+<link rel="stylesheet" href="ui-kit/css/ep-fonts.css">
+<link rel="stylesheet" href="ui-kit/css/ep-tokens.css">
+<link rel="stylesheet" href="ui-kit/css/ep-reset.css">
+<link rel="stylesheet" href="ui-kit/css/ep-base.css">
+<link rel="stylesheet" href="ui-kit/css/ep-controls.css">
+<link rel="stylesheet" href="ui-kit/css/ep-surfaces.css">
+<link rel="stylesheet" href="ui-kit/css/ep-data.css">
+<link rel="stylesheet" href="ui-kit/css/ep-shell.css">
+<link rel="stylesheet" href="ui-kit/css/ep-overlays.css">
+<link rel="stylesheet" href="ui-kit/css/ep-screens.css">
+<link rel="stylesheet" href="ui-kit/css/ep-extended.css">
+<script src="ui-kit/js/ep-theme.js"></script>
+</head>
+
+<body data-ep-nav="library" data-ep-crumb="LIBRARY" data-ep-title="Report library"
+      data-ep-period="Dec 2026" data-ep-asof="18 Dec 4:41 PM"
+      data-ep-assistant-ctx="Report library · Unit 2">
+
+<div class="ep-app">
+  <div data-ep-mount="sidebar"></div>
+  <div class="ep-app__main">
+    <div data-ep-mount="topbar"></div>
+
+    <main class="ep-page">
+
+      <div class="ep-page-head">
+        <div class="ep-col ep-gap-2">
+          <h1 class="ep-h-page">Report library</h1>
+          <p class="ep-t-md ep-t-muted" style="margin:0">6 reports &middot; 3 favourites &middot; 2 shared with you this week</p>
+        </div>
+        <div class="ep-page-head__actions">
+          <button class="ep-btn ep-btn--ghost ep-btn--pill-lg" type="button" data-ep-open="filters">Filters</button>
+          <button class="ep-btn ep-btn--primary ep-btn--pill-lg" type="button" data-ep-open="addtile">New report</button>
+        </div>
+      </div>
+
+      <div class="ep-tabs" data-ep-tabs="library" role="tablist" aria-label="Report category">
+        <button class="ep-tab ep-is-active" type="button" data-ep-tab="all" data-ep-filter="all"
+                role="tab" aria-selected="true">All <span class="ep-badge ep-badge--kind">6</span></button>
+        <button class="ep-tab" type="button" data-ep-tab="operations" data-ep-filter="operations"
+                role="tab" aria-selected="false">Operations</button>
+        <button class="ep-tab" type="button" data-ep-tab="delivery" data-ep-filter="delivery"
+                role="tab" aria-selected="false">Delivery</button>
+        <button class="ep-tab" type="button" data-ep-tab="quality" data-ep-filter="quality"
+                role="tab" aria-selected="false">Quality</button>
+        <button class="ep-tab" type="button" data-ep-tab="cost" data-ep-filter="cost"
+                role="tab" aria-selected="false">Cost</button>
+        <button class="ep-tab" type="button" data-ep-tab="people" data-ep-filter="people"
+                role="tab" aria-selected="false">People</button>
+      </div>
+
+      <div class="ep-lib-toolbar">
+        <button class="ep-btn ep-btn--ghost" type="button" data-ep-fav-filter aria-pressed="false">Favourites only</button>
+        <button class="ep-btn ep-btn--ghost" type="button" data-ep-menu="sort" aria-expanded="false">
+          Sort: <span data-ep-menu-label>Recently used</span>
+          <span class="ep-caret" data-ep-icon="chevron-down" data-ep-icon-size="10"></span>
+        </button>
+        <div class="ep-spacer"></div>
+        <div class="ep-toggle-group" role="group" aria-label="Layout">
+          <button class="ep-is-active" type="button" data-ep-layout="layout" data-ep-layout-mode="grid">Grid</button>
+          <button type="button" data-ep-layout="layout" data-ep-layout-mode="list">List</button>
+        </div>
+      </div>
+
+      <div class="ep-grid ep-grid--2 ep-grid--16" data-ep-sortable data-ep-cat-section>
+  <article class="ep-report-card"
+           data-ep-cat="operations" data-ep-name="Order Health Board"
+           data-ep-recent="1" data-ep-shares="12" data-ep-fresh="1" data-ep-fav>
+    <div class="ep-report-card__titles">
+      <a class="ep-report-card__name ep-t-head" href="report-viewer.html">Order Health Board</a>
+      <span class="ep-report-card__desc">Every open order with stage, promised date and projected date.</span>
+    </div>
+    <div class="ep-report-card__audience">
+      <span class="ep-report-card__audience-label">FOR</span>
+      <span class="ep-chip ep-chip--audience">Planning</span>
+      <span class="ep-chip ep-chip--audience">Merchandising</span>
+    </div>
+    <div class="ep-report-card__freshness">
+      <span class="ep-badge ep-badge--fresh">Updated 35 min ago</span>
+    </div>
+    <div class="ep-report-card__actions">
+      <button class="ep-star" type="button" data-ep-star
+            aria-label="Remove from favourites" data-ep-icon="star" data-ep-icon-size="14"></button>
+        <a class="ep-btn ep-btn--sm ep-btn--primary" href="report-viewer.html">Open</a>
+        <button class="ep-btn ep-btn--sm ep-btn--ghost" type="button" data-ep-open="run">Run</button>
+      <button class="ep-kebab" type="button" data-ep-menu="reportkebab"
+              aria-expanded="false" aria-label="More actions for Order Health Board">&ctdot;</button>
+    </div>
+  </article>
+  <article class="ep-report-card"
+           data-ep-cat="operations" data-ep-name="Production Pulse (Daily)"
+           data-ep-recent="2" data-ep-shares="28" data-ep-fresh="2" data-ep-fav>
+    <div class="ep-report-card__titles">
+      <a class="ep-report-card__name ep-t-head" href="report-viewer.html">Production Pulse (Daily)</a>
+      <span class="ep-report-card__desc">Output, efficiency and downtime by line, for yesterday.</span>
+    </div>
+    <div class="ep-report-card__audience">
+      <span class="ep-report-card__audience-label">FOR</span>
+      <span class="ep-chip ep-chip--audience">Production</span>
+      <span class="ep-chip ep-chip--audience">Business Head</span>
+    </div>
+    <div class="ep-report-card__freshness">
+      <span class="ep-badge ep-badge--fresh">Updated 06:15</span>
+    </div>
+    <div class="ep-report-card__actions">
+      <button class="ep-star" type="button" data-ep-star
+            aria-label="Remove from favourites" data-ep-icon="star" data-ep-icon-size="14"></button>
+        <a class="ep-btn ep-btn--sm ep-btn--primary" href="report-viewer.html">Open</a>
+        <button class="ep-btn ep-btn--sm ep-btn--ghost" type="button" data-ep-open="run">Run</button>
+      <button class="ep-kebab" type="button" data-ep-menu="reportkebab"
+              aria-expanded="false" aria-label="More actions for Production Pulse (Daily)">&ctdot;</button>
+    </div>
+  </article>
+  <article class="ep-report-card"
+           data-ep-cat="delivery" data-ep-name="Delivery Risk Register"
+           data-ep-recent="3" data-ep-shares="19" data-ep-fresh="3">
+    <div class="ep-report-card__titles">
+      <a class="ep-report-card__name ep-t-head" href="report-viewer.html">Delivery Risk Register</a>
+      <span class="ep-report-card__desc">Orders projected to miss their promised date, ranked by days late.</span>
+    </div>
+    <div class="ep-report-card__audience">
+      <span class="ep-report-card__audience-label">FOR</span>
+      <span class="ep-chip ep-chip--audience">Merchandising</span>
+      <span class="ep-chip ep-chip--audience">PPC</span>
+    </div>
+    <div class="ep-report-card__freshness">
+      <span class="ep-badge ep-badge--fresh">Updated 2 h ago</span>
+    </div>
+    <div class="ep-report-card__actions">
+      <button class="ep-star ep-star--off" type="button" data-ep-star
+            aria-label="Add to favourites" data-ep-icon="star" data-ep-icon-size="14"></button>
+        <a class="ep-btn ep-btn--sm ep-btn--primary" href="report-viewer.html">Open</a>
+        <button class="ep-btn ep-btn--sm ep-btn--ghost" type="button" data-ep-open="run">Run</button>
+      <button class="ep-kebab" type="button" data-ep-menu="reportkebab"
+              aria-expanded="false" aria-label="More actions for Delivery Risk Register">&ctdot;</button>
+    </div>
+  </article>
+  <article class="ep-report-card"
+           data-ep-cat="quality" data-ep-name="Quality &amp; Defect Analysis"
+           data-ep-recent="4" data-ep-shares="9" data-ep-fresh="4">
+    <div class="ep-report-card__titles">
+      <a class="ep-report-card__name ep-t-head" href="report-viewer.html">Quality &amp; Defect Analysis</a>
+      <span class="ep-report-card__desc">DHU and defect causes by line, shift and product.</span>
+    </div>
+    <div class="ep-report-card__audience">
+      <span class="ep-report-card__audience-label">FOR</span>
+      <span class="ep-chip ep-chip--audience">Quality</span>
+    </div>
+    <div class="ep-report-card__freshness">
+      <span class="ep-badge ep-badge--stale">Last synced 2 d ago</span>
+    </div>
+    <div class="ep-report-card__actions">
+      <button class="ep-star ep-star--off" type="button" data-ep-star
+            aria-label="Add to favourites" data-ep-icon="star" data-ep-icon-size="14"></button>
+        <a class="ep-btn ep-btn--sm ep-btn--primary" href="report-viewer.html">Open</a>
+        <button class="ep-btn ep-btn--sm ep-btn--ghost" type="button" data-ep-open="run">Run</button>
+      <button class="ep-kebab" type="button" data-ep-menu="reportkebab"
+              aria-expanded="false" aria-label="More actions for Quality &amp; Defect Analysis">&ctdot;</button>
+    </div>
+  </article>
+  <article class="ep-report-card"
+           data-ep-cat="operations" data-ep-name="Line Efficiency Tracker"
+           data-ep-recent="5" data-ep-shares="14" data-ep-fresh="2" data-ep-fav>
+    <div class="ep-report-card__titles">
+      <a class="ep-report-card__name ep-t-head" href="report-viewer.html">Line Efficiency Tracker</a>
+      <span class="ep-report-card__desc">Efficiency against the standard minute value, by line and shift.</span>
+    </div>
+    <div class="ep-report-card__audience">
+      <span class="ep-report-card__audience-label">FOR</span>
+      <span class="ep-chip ep-chip--audience">Production</span>
+    </div>
+    <div class="ep-report-card__freshness">
+      <span class="ep-badge ep-badge--fresh">Updated 40 min ago</span>
+    </div>
+    <div class="ep-report-card__actions">
+      <button class="ep-star" type="button" data-ep-star
+            aria-label="Remove from favourites" data-ep-icon="star" data-ep-icon-size="14"></button>
+        <a class="ep-btn ep-btn--sm ep-btn--primary" href="report-viewer.html">Open</a>
+        <button class="ep-btn ep-btn--sm ep-btn--ghost" type="button" data-ep-open="run">Run</button>
+      <button class="ep-kebab" type="button" data-ep-menu="reportkebab"
+              aria-expanded="false" aria-label="More actions for Line Efficiency Tracker">&ctdot;</button>
+    </div>
+  </article>
+  <article class="ep-report-card ep-report-card--locked"
+           data-ep-cat="cost" data-ep-name="Cost per Unit Analysis"
+           data-ep-recent="6" data-ep-shares="4" data-ep-fresh="5">
+    <div class="ep-report-card__titles">
+      <a class="ep-report-card__name ep-t-head" href="report-viewer.html">Cost per Unit Analysis</a>
+      <span class="ep-report-card__desc">Direct cost per unit, bridged from plan to actual.</span>
+    <p class="ep-t-sm ep-t-muted" style="margin:0">You do not have access. Ask the report owner, R. Shah, for access.</p>
+    </div>
+    <div class="ep-report-card__audience">
+      <span class="ep-report-card__audience-label">FOR</span>
+      <span class="ep-chip ep-chip--audience">Finance</span>
+    </div>
+    <div class="ep-report-card__freshness">
+      <span class="ep-badge ep-badge--fresh">Updated yesterday</span>
+    </div>
+    <div class="ep-report-card__actions">
+      <button class="ep-star ep-star--off" type="button" data-ep-star
+            aria-label="Add to favourites" data-ep-icon="star" data-ep-icon-size="14"></button>
+        <button class="ep-btn ep-btn--sm ep-btn--ghost" type="button" data-ep-action="share">Request access</button>
+    </div>
+  </article>      </div>
+
+      <div class="ep-card" data-ep-empty-filter hidden>
+        <div class="ep-state">
+          <span class="ep-state__icon" data-ep-icon="filter" data-ep-icon-size="28"></span>
+          <span class="ep-state__title">Nothing in <span data-ep-empty-filter-name>this category</span></span>
+          <p class="ep-state__body" style="margin:0">The library has six reports, and none of them is filed
+            here yet. Choose another category, or clear the filter to see all six.</p>
+          <div class="ep-state__actions">
+            <a class="ep-btn ep-btn--ghost" href="report-library.html">Show all reports</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="ep-build-strip">
+        <span>EPIC Pulse &middot; Version 4.2.0 &middot; Build 20261218.3</span>
+        <span>Supported browsers: Edge 120+, Chrome 120+, Firefox 121+</span>
+        <span>Support: pulse.support@epicgroup.com</span>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<div data-ep-mount="overlays"></div>
+
+<script src="ui-kit/js/ep-hooks.js"></script>
+<script src="ui-kit/js/ep-dialog.js"></script>
+<script src="app-config.js"></script>
+<script src="ui-kit/js/ep-icons.js"></script>
+<script src="ui-kit/js/ep-menus.js"></script>
+<script src="ui-kit/js/ep-datepicker.js"></script>
+<script src="ui-kit/js/ep-shell.js"></script>
+<script src="ui-kit/js/ep-overlays.js"></script>
+<script src="ui-kit/js/ep-app.js"></script>
+</body>
+</html>

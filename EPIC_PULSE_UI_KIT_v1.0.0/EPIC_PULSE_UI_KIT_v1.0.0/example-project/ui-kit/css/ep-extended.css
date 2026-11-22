@@ -1,0 +1,299 @@
+/* EPIC Pulse UI Kit — extended
+   Layer 12, and it loads LAST because it is meant to win. Menus, the date
+   picker, the definition tooltip, the full-screen tile and the inline note
+   composer — plus the rules that deliberately override earlier layers:
+   the list layout, table density, and the hidden-column rule.
+   Requires: every layer it overrides. */
+
+.ep-menu-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 65;
+  display: none;
+}
+
+.ep-menu-layer.ep-is-open { display: block; }
+
+.ep-pop {
+  position: absolute;
+  background: var(--ep-surface-card);
+  border: 1px solid var(--ep-border-subtle);
+  border-radius: var(--ep-radius-md);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, .32);
+  overflow: hidden;
+}
+
+.ep-menu {
+  min-width: 208px;
+  max-width: min(340px, calc(100vw - 24px));
+  display: flex;
+  flex-direction: column;
+  max-height: min(60vh, 420px);
+}
+
+.ep-menu__head {
+  padding: 10px 12px 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  color: var(--ep-text-muted);
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.ep-menu__search {
+  padding: 4px 8px 8px;
+  flex-shrink: 0;
+}
+
+.ep-menu__search input {
+  box-sizing: border-box;
+  width: 100%;
+  background: var(--ep-surface-inset);
+  border: 1px solid var(--ep-border-subtle);
+  border-radius: 10px;
+  padding: 8px 11px;
+  font-size: 11.5px;
+  color: var(--ep-text-body);
+}
+
+.ep-menu__list {
+  padding: 6px;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+.ep-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 9px;
+  font-size: 12px;
+  color: var(--ep-text-body);
+  text-align: left;
+  transition: background .12s ease-out, color .12s ease-out;
+}
+
+.ep-menu__item:hover,
+.ep-menu__item.ep-is-focus { background: var(--ep-surface-inset); color: var(--ep-text-heading); }
+.ep-menu__item.ep-is-selected { color: var(--ep-text-heading); font-weight: 700; }
+.ep-menu__item.ep-is-danger { color: var(--ep-accent-secondary); }
+.ep-menu__item[disabled] { opacity: .45; pointer-events: none; }
+
+.ep-menu__tick {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ep-accent-primary);
+  opacity: 0;
+}
+
+.ep-menu__item.ep-is-selected .ep-menu__tick { opacity: 1; }
+
+.ep-menu__box {
+  width: 15px;
+  height: 15px;
+  border-radius: 4px;
+  border: 1px solid var(--ep-border-strong);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.ep-menu__box svg { opacity: 0; }
+.ep-menu__item.ep-is-selected .ep-menu__box { background: var(--ep-accent-primary); border-color: var(--ep-accent-primary); }
+.ep-menu__item.ep-is-selected .ep-menu__box svg { opacity: 1; }
+
+.ep-menu__icon { display: flex; color: var(--ep-text-muted); flex-shrink: 0; }
+.ep-menu__text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.ep-menu__label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ep-menu__note { font-size: 10.5px; font-weight: 400; color: var(--ep-text-muted); }
+.ep-menu__meta { font-size: 10.5px; color: var(--ep-text-muted); flex-shrink: 0; }
+.ep-menu__sep { height: 1px; background: var(--ep-border-subtle); margin: 6px 4px; }
+
+.ep-menu__empty {
+  padding: 18px 12px;
+  font-size: 11.5px;
+  color: var(--ep-text-muted);
+  text-align: center;
+}
+
+.ep-menu__foot {
+  border-top: 1px solid var(--ep-border-subtle);
+  padding: 8px;
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* a notification-style row inside a menu */
+.ep-menu__item--rich { align-items: flex-start; gap: 10px; padding: 10px; }
+.ep-menu__item--rich .ep-menu__text { gap: 2px; }
+.ep-menu__item--rich .ep-menu__label { white-space: normal; font-weight: 700; color: var(--ep-text-heading); }
+
+.ep-caret { display: flex; color: var(--ep-text-muted); flex-shrink: 0; transition: transform .15s ease-out; }
+[aria-expanded="true"] > .ep-caret { transform: rotate(180deg); }
+
+.ep-cal { width: 272px; padding: 12px; }
+.ep-cal--week { width: 302px; }
+
+.ep-cal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 2px 10px;
+}
+
+.ep-cal__title { font-size: 12.5px; font-weight: 700; color: var(--ep-text-heading); }
+
+.ep-cal__nav {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ep-text-muted);
+  flex-shrink: 0;
+  transition: background .12s ease-out, color .12s ease-out;
+}
+
+.ep-cal__nav:hover { background: var(--ep-surface-inset); color: var(--ep-text-heading); }
+
+.ep-cal__grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 2px; }
+.ep-cal--week .ep-cal__grid { grid-template-columns: 28px repeat(7, minmax(0, 1fr)); }
+
+.ep-cal__dow {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .4px;
+  color: var(--ep-text-muted);
+  text-align: center;
+  padding: 4px 0 6px;
+}
+
+.ep-cal__wk {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--ep-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+}
+
+.ep-cal__day {
+  height: 30px;
+  border-radius: 8px;
+  font-size: 11.5px;
+  color: var(--ep-text-body);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .12s ease-out, color .12s ease-out;
+}
+
+.ep-cal__day:hover { background: var(--ep-surface-inset); color: var(--ep-text-heading); }
+.ep-cal__day.ep-is-out { color: var(--ep-text-muted); opacity: .45; }
+.ep-cal__day.ep-is-today { box-shadow: inset 0 0 0 1px var(--ep-accent-primary); font-weight: 700; }
+.ep-cal__day.ep-is-range { background: color-mix(in oklab, var(--ep-accent-primary) 15%, transparent); border-radius: 0; }
+.ep-cal__day.ep-is-selected { background: var(--ep-accent-fill); color: #fff; font-weight: 700; border-radius: 8px; }
+
+/* week mode highlights the whole row */
+.ep-cal__row--hoverable:hover .ep-cal__day { background: var(--ep-surface-inset); }
+.ep-cal__row--selected .ep-cal__day { background: color-mix(in oklab, var(--ep-accent-primary) 18%, transparent); }
+.ep-cal__row--selected .ep-cal__wk { background: var(--ep-accent-fill); color: #fff; }
+
+.ep-cal__foot {
+  display: flex;
+  gap: 8px;
+  padding-top: 10px;
+  margin-top: 8px;
+  border-top: 1px solid var(--ep-border-subtle);
+}
+
+.ep-cal__hint {
+  font-size: 10.5px;
+  color: var(--ep-text-muted);
+  padding: 8px 2px 0;
+  line-height: 1.4;
+}
+
+.ep-tip {
+  max-width: 300px;
+  padding: 11px 13px;
+  font-size: 11.5px;
+  color: var(--ep-text-body);
+  line-height: 1.55;
+  border-radius: 11px;
+}
+
+.ep-tip__title { display: block; font-weight: 700; color: var(--ep-text-heading); margin-bottom: 4px; }
+
+.ep-tile.ep-is-fullscreen {
+  position: fixed;
+  inset: 16px;
+  z-index: 66;
+  margin: 0;
+  overflow: auto;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .5);
+}
+
+.ep-tile.ep-is-fullscreen .ep-chart { height: auto; flex: 1; min-height: 240px; }
+
+.ep-fullscreen-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 18, 32, .6);
+  z-index: 64;
+}
+
+.ep-note-form { display: flex; flex-direction: column; gap: 8px; }
+
+.ep-note-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--ep-border-subtle);
+  border-radius: 11px;
+  background: var(--ep-surface-card);
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--ep-text-body);
+  resize: vertical;
+  min-height: 62px;
+}
+
+.ep-note-form__actions { display: flex; gap: 8px; justify-content: flex-end; }
+
+.ep-dtable--compact tbody td { padding-top: 6px; padding-bottom: 6px; }
+.ep-dtable--compact thead th { padding-top: 7px; padding-bottom: 7px; }
+.ep-dtable [hidden] { display: none !important; }
+
+/* Report Library list layout */
+.ep-grid--list { grid-template-columns: minmax(0, 1fr) !important; }
+
+.ep-grid--list .ep-report-card {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr) auto;
+  align-items: center;
+  gap: 16px;
+}
+
+.ep-grid--list .ep-report-card__actions { border-top: 0; padding-top: 0; justify-content: flex-end; }
+.ep-grid--list .ep-report-card__freshness { justify-content: flex-start; }
+
+@media (max-width: 899px) {
+  .ep-grid--list .ep-report-card { grid-template-columns: minmax(0, 1fr); }
+  .ep-grid--list .ep-report-card__actions { justify-content: flex-start; }
+}

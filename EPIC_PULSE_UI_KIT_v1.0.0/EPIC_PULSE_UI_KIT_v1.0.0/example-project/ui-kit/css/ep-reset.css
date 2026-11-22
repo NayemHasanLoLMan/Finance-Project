@@ -1,0 +1,71 @@
+/* EPIC Pulse UI Kit — reset
+   Layer 3. Element-level normalisation, plus two rules that are not cosmetic:
+
+     [hidden]        carries !important because panels, empty states and
+                     collapsed nav groups are toggled through the attribute
+                     while their classes set display:flex. Without it they
+                     stay visible.
+     focus ring      input:focus and :focus-visible are the only visible
+                     focus indication in the kit.
+
+   A host page with its own reset may skip this layer — but must reproduce
+   those two rules, or dialogs will not close and keyboard focus will vanish. */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+/* The UA sheet gives [hidden] display:none, but any author `display` beats
+   it — and most components here set one. Panels, empty states and collapsed
+   nav groups are all toggled via the attribute, so it has to win. */
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ep-surface-app);
+  color: var(--ep-text-body);
+  font-family: var(--ep-font-exo), Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: var(--ep-leading-normal);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* the shell owns scrolling on wide viewports; see shell.css */
+img, svg { max-width: 100%; }
+img { display: block; }
+
+a { color: var(--ep-accent-primary); text-decoration: none; }
+a:hover { color: var(--ep-accent-secondary); }
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+input, textarea, select {
+  font: inherit;
+  color: var(--ep-text-body);
+  background: var(--ep-surface-card);
+  outline: none;
+  transition: box-shadow .15s ease, border-color .15s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--ep-accent-primary) !important;
+  box-shadow: var(--ep-focus-ring) !important;
+}
+
+input::placeholder, textarea::placeholder { color: var(--ep-text-muted); }
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--ep-focus-ring);
+  border-radius: var(--ep-radius-sm);
+}
+

@@ -1,0 +1,30 @@
+# Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Temporary & Lock Files
+*.tmp
+~$*.xlsx
+.DS_Store
+Thumbs.db
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE & Editor Settings
+.vscode/
+.idea/
+*.swp
+
+# Local configuration and financial artifacts
+.env
+data/
+outputs/
+archive/
+tmp/
+inputs/
+City_Bank_Advice_Summary.xlsx

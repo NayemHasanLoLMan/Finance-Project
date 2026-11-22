@@ -1,0 +1,517 @@
+/* EPIC Pulse UI Kit — controls
+   Layer 5. The things a user operates: buttons, chips, badges, fields,
+   checks, switches, tabs, segmented controls, pagination, progress.
+   Requires: tokens, reset, base. */
+
+.ep-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: 1.2;
+  padding: 7px 11px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  color: var(--ep-text-body);
+  background: transparent;
+  white-space: nowrap;
+  transition: background .15s ease-out, border-color .15s ease-out, color .15s ease-out;
+}
+
+.ep-btn--primary { background: var(--ep-accent-fill); color: #fff; }
+.ep-btn--primary:hover { background: color-mix(in oklab, var(--ep-accent-primary) 90%, #000); color: #fff; }
+
+.ep-btn--secondary { background: var(--ep-accent-fill-secondary); color: #fff; }
+.ep-btn--secondary:hover { background: color-mix(in oklab, var(--ep-accent-secondary) 90%, #000); color: #fff; }
+
+.ep-btn--ghost { border-color: var(--ep-border-strong); color: var(--ep-text-body); }
+.ep-btn--ghost:hover { background: var(--ep-surface-inset); color: var(--ep-text-heading); }
+
+.ep-btn--muted { border-color: var(--ep-border-strong); color: var(--ep-text-muted); }
+.ep-btn--muted:hover { background: var(--ep-surface-inset); color: var(--ep-text-body); }
+
+.ep-btn--link { padding: 0; color: var(--ep-accent-primary); border: 0; }
+.ep-btn--link:hover { color: var(--ep-accent-secondary); text-decoration: underline; }
+
+.ep-btn--sm { font-size: 11px; padding: 7px 11px; border-radius: 9px; }
+.ep-btn--xs { font-size: 10.5px; padding: 6px 9px; border-radius: 8px; }
+
+.ep-btn--lg {
+  font-size: 13px;
+  padding: 13px;
+  border-radius: 14px;
+  width: 100%;
+}
+
+.ep-btn--block { width: 100%; }
+.ep-btn--pill-lg { font-size: 11.5px; padding: 9px 14px; border-radius: 11px; }
+.ep-btn--tall { padding: 9px 13px; border-radius: 10px; }
+.ep-btn--wide { padding: 10px 14px; border-radius: 11px; }
+.ep-btn--stack { padding: 11px; border-radius: 12px; flex: 1; }
+.ep-btn--stack-wide { padding: 11px; border-radius: 12px; flex: 1.3; }
+
+.ep-btn[disabled], .ep-btn.ep-is-disabled { opacity: .5; pointer-events: none; }
+
+/* --- button shapes ------------------------------------------------------
+   After the sizes, so they win on radius and padding at equal specificity. */
+
+/* Square — one glyph or one character, and nothing else. aspect-ratio rather
+   than a fixed width, so it stays square at whatever size it is given. */
+.ep-btn--square {
+  aspect-ratio: 1;
+  padding: 0;
+  width: auto;
+  min-width: 34px;
+  border-radius: 10px;
+}
+
+/* Card — a button that is the whole choice rather than a control beside one.
+   Stacks its label under its mark and fills the track it is laid into, so a
+   row of them lines up without any of them being measured. */
+.ep-btn--card {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  width: 100%;
+  min-height: 78px;
+  padding: 13px 14px;
+  border-radius: 14px;
+  white-space: normal;
+  text-align: left;
+}
+
+/* --- button finishes ----------------------------------------------------
+   How a button is finished, not what it means: each one composes with every
+   fill, every size, and with the others. One finish per screen — twelve
+   glossy buttons in a toolbar is noise, and raised carries the card shadow,
+   which reaches 28px below the button in the dark theme: more room than a
+   dense row has. */
+
+/* Shadow — a resting elevation that does not move. For a button that sits on
+   its own on a wide surface, where the page ground gives it nothing to read
+   against. */
+.ep-btn--shadow { box-shadow: var(--ep-shadow-card-soft); }
+
+/* Raised — the same idea with the third dimension in it: it lifts under the
+   pointer and presses back in on click, so the press is felt rather than
+   inferred. transform is on the transition here and nowhere else in the
+   button, which is why it is declared rather than inherited. */
+.ep-btn--raised {
+  box-shadow: var(--ep-shadow-card);
+  transition: background .15s ease-out, border-color .15s ease-out,
+              color .15s ease-out, box-shadow .15s ease-out, transform .15s ease-out;
+}
+
+.ep-btn--raised:hover:not([disabled]) { box-shadow: var(--ep-shadow-card); transform: translateY(-1px); }
+.ep-btn--raised:active:not([disabled]) { box-shadow: none; transform: translateY(1px); }
+
+/* Glossy — background-IMAGE only, so the fill classes keep owning
+   background-COLOR and the sheen never has to know which fill it is sitting
+   on. One rule covers all five fills in both themes. The :hover selector is
+   load-bearing: the fills set the background shorthand on hover, which resets
+   background-image, and without this the sheen disappears under the pointer. */
+.ep-btn--glossy,
+.ep-btn--glossy:hover:not([disabled]) {
+  background-image: linear-gradient(180deg,
+    rgba(255, 255, 255, .22) 0%,
+    rgba(255, 255, 255, .07) 45%,
+    rgba(255, 255, 255, 0) 55%,
+    rgba(11, 18, 32, .10) 100%);
+}
+
+/* Pressed, the light comes from below instead. */
+.ep-btn--glossy:active:not([disabled]) {
+  background-image: linear-gradient(0deg,
+    rgba(255, 255, 255, .16) 0%,
+    rgba(255, 255, 255, 0) 55%,
+    rgba(11, 18, 32, .12) 100%);
+}
+
+/* Gradient — the product's own brand gradient, the one the sidebar and the
+   auth panel carry. It does not flip with the theme, for the same reason
+   those two surfaces do not, so it always needs light text on it. */
+.ep-btn--gradient {
+  background: var(--ep-brand-gradient-header);
+  border-color: transparent;
+  color: var(--ep-text-on-dark);
+}
+
+.ep-btn--gradient:hover:not([disabled]) {
+  background: var(--ep-brand-gradient-diag);
+  color: var(--ep-text-on-dark);
+}
+
+/* Edged — border and text take the accent, the fill stays out of it. For a
+   secondary action that still has to be found: louder than ghost, and it does
+   not claim the one filled slot a view is allowed. */
+.ep-btn--edged {
+  border-color: var(--ep-accent-primary);
+  color: var(--ep-accent-primary);
+  background: transparent;
+}
+
+.ep-btn--edged:hover:not([disabled]) {
+  background: var(--ep-accent-primary);
+  color: var(--ep-text-on-accent);
+}
+
+/* outlined Microsoft button on the auth screens */
+.ep-btn--sso {
+  border: 1px solid var(--ep-border-strong);
+  border-radius: 14px;
+  padding: 12px;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--ep-text-heading);
+  width: 100%;
+}
+
+.ep-btn--sso:hover { background: var(--ep-surface-inset); }
+
+.ep-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--ep-text-body);
+  background: var(--ep-surface-inset);
+  border: 1px solid var(--ep-border-subtle);
+  border-radius: 9px;
+  padding: 6px 10px;
+  white-space: nowrap;
+  transition: border-color .15s ease-out, background .15s ease-out;
+}
+
+.ep-chip:hover { border-color: var(--ep-border-strong); }
+
+.ep-chip--active { background: var(--ep-accent-fill); color: #fff; font-weight: 700; border-color: transparent; }
+.ep-chip--active:hover { background: color-mix(in oklab, var(--ep-accent-primary) 90%, #000); color: #fff; }
+
+.ep-chip--indigo { background: var(--ep-accent-fill-secondary); color: #fff; font-weight: 700; border-color: transparent; }
+
+/* A chip can be the control in a tab strip (the Pulse Home feed filter, the
+   drill-down's grain switcher, shared with me's type facets). Those are driven by
+   activateTab, which only toggles .ep-is-active — the same state class .ep-tab and
+   .ep-segmented__btn use — so the chip has to answer to it too, or the strip
+   stays frozen on whichever chip was born looking selected. Matches
+   .ep-chip--active, which is what radio() swaps in, so a chip looks the same
+   however its group is driven. */
+.ep-chip.ep-is-active {
+  background: var(--ep-accent-fill);
+  color: #fff;
+  font-weight: 700;
+  border-color: transparent;
+}
+
+.ep-chip.ep-is-active:hover { background: color-mix(in oklab, var(--ep-accent-primary) 90%, #000); color: #fff; }
+
+.ep-chip--outline { background: transparent; border-color: var(--ep-border-strong); }
+.ep-chip--dashed { background: transparent; border: 1px dashed var(--ep-border-strong); color: var(--ep-accent-primary); font-weight: 700; }
+
+.ep-chip--sm { font-size: 10.5px; padding: 5px 9px; border-radius: 8px; }
+.ep-chip--xs { font-size: 11px; padding: 5px 9px; border-radius: 8px; }
+.ep-chip--plain { background: var(--ep-surface-inset); border-color: transparent; }
+
+/* a chip can host its own controls: the body opens the dimension it filters,
+   the × removes it */
+.ep-chip > button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: inherit;
+  font: inherit;
+  white-space: nowrap;
+}
+
+.ep-chip__x {
+  opacity: .6;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0 1px;
+  transition: opacity .12s ease-out;
+}
+
+.ep-chip__x:hover { opacity: 1; }
+
+/* audience chips on report cards */
+.ep-chip--audience {
+  font-size: 10px;
+  color: var(--ep-text-body);
+  background: var(--ep-surface-inset);
+  border: 0;
+  border-radius: 6px;
+  padding: 3px 6px;
+}
+
+.ep-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 4px 7px;
+  white-space: nowrap;
+}
+
+.ep-badge--severity {
+  font-size: 9.5px;
+  letter-spacing: .7px;
+  color: #fff;
+  background: var(--ep-accent-fill-secondary);
+}
+
+.ep-badge--fresh {
+  color: var(--ep-accent-primary);
+  background: color-mix(in oklab, var(--ep-accent-primary) 8%, transparent);
+}
+
+.ep-badge--stale { color: var(--ep-text-muted); background: var(--ep-surface-inset); }
+.ep-badge--outline { color: var(--ep-text-body); border: 1px solid var(--ep-border-strong); }
+.ep-badge--outline-muted { color: var(--ep-text-muted); border: 1px solid var(--ep-border-strong); font-size: 9.5px; }
+.ep-badge--status { font-size: 10px; color: #fff; background: var(--ep-accent-fill-secondary); border-radius: 6px; padding: 3px 6px; }
+.ep-badge--status-quiet { font-size: 10px; color: var(--ep-text-body); border: 1px solid var(--ep-border-strong); border-radius: 6px; padding: 3px 6px; }
+
+.ep-badge--kind {
+  font-size: 9px;
+  font-weight: 700;
+  border-radius: 5px;
+  padding: 3px 5px;
+  color: var(--ep-text-muted);
+  background: var(--ep-surface-inset);
+}
+
+.ep-badge--kind-accent {
+  color: var(--ep-accent-primary);
+  background: color-mix(in oklab, var(--ep-accent-primary) 8%, transparent);
+}
+
+.ep-badge--phase {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--ep-accent-fill-secondary);
+  border-radius: 8px;
+  padding: 5px 9px;
+}
+
+.ep-tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-bottom: 1px solid var(--ep-border-subtle);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.ep-tabs::-webkit-scrollbar { display: none; }
+
+.ep-tab {
+  font-size: 12px;
+  color: var(--ep-text-muted);
+  padding: 14px 12px;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color .15s ease-out;
+}
+
+.ep-tab:hover { color: var(--ep-text-body); }
+.ep-tab.ep-is-active { font-weight: 700; color: var(--ep-text-heading); border-bottom-color: var(--ep-accent-primary); }
+
+/* inline tab row inside a card (breakdown tabs) */
+.ep-tabs--inline { gap: 6px; padding-bottom: 2px; }
+.ep-tabs--inline .ep-tab { padding: 0 10px 9px; }
+.ep-tabs--inline .ep-tab:first-child { padding-left: 4px; padding-right: 4px; }
+
+/* segmented control (view switcher) */
+.ep-segmented {
+  display: inline-flex;
+  background: var(--ep-surface-inset);
+  border: 1px solid var(--ep-border-subtle);
+  border-radius: 11px;
+  padding: 3px;
+  flex-shrink: 0;
+}
+
+.ep-segmented__btn {
+  font-size: 11.5px;
+  color: var(--ep-text-muted);
+  padding: 7px 13px;
+  border-radius: 9px;
+  white-space: nowrap;
+  transition: background .15s ease-out, color .15s ease-out;
+}
+
+.ep-segmented__btn:hover { color: var(--ep-text-body); }
+.ep-segmented__btn.ep-is-active { font-weight: 700; color: #fff; background: var(--ep-accent-fill); }
+
+.ep-segmented--sm .ep-segmented__btn { font-size: 11px; padding: 6px 11px; }
+
+/* grid / list toggle */
+.ep-toggle-group {
+  display: flex;
+  border: 1px solid var(--ep-border-strong);
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.ep-toggle-group button {
+  padding: 7px 10px;
+  font-size: 11px;
+  color: var(--ep-text-muted);
+  transition: background .15s ease-out;
+}
+
+.ep-toggle-group button.ep-is-active { background: var(--ep-accent-fill); color: #fff; font-weight: 700; }
+
+@media (max-width: 767px) {
+  .ep-segmented__btn { font-size: 11px; padding: 6px 10px; }
+}
+
+.ep-field { display: flex; flex-direction: column; gap: 7px; min-width: 0; flex: 1; }
+.ep-field__label { font-size: 10.5px; font-weight: 700; color: var(--ep-text-heading); }
+.ep-field__label--auth { font-size: 11px; }
+
+.ep-input {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid var(--ep-border-subtle);
+  border-radius: 11px;
+  background: var(--ep-surface-card);
+  padding: 9px 11px;
+  font-size: 11.5px;
+  color: var(--ep-text-body);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  text-align: left;
+}
+
+.ep-input--auth { border-radius: 14px; padding: 12px 14px; font-size: 13px; }
+.ep-input--focus { border-color: var(--ep-accent-primary); }
+.ep-input--lg { padding: 10px 12px; }
+.ep-input--multiline { display: block; line-height: 1.5; color: var(--ep-text-muted); }
+.ep-input__caret { color: var(--ep-text-muted); flex-shrink: 0; }
+
+/* a bare input nested inside .ep-input, so the wrapper keeps the styling */
+.ep-input > input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+.ep-input > input:focus { box-shadow: none !important; border-color: transparent !important; }
+.ep-input:focus-within { border-color: var(--ep-accent-primary); box-shadow: var(--ep-focus-ring); }
+.ep-input__reveal { display: flex; color: var(--ep-text-muted); flex-shrink: 0; }
+.ep-input__reveal:hover { color: var(--ep-accent-primary); }
+
+.ep-input-search { position: relative; }
+.ep-input-search svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--ep-text-muted); pointer-events: none; }
+.ep-input-search .ep-input { padding-left: 36px; }
+
+/* checkbox */
+.ep-check { display: flex; align-items: center; gap: 9px; }
+
+.ep-check__box {
+  color: #fff;
+  width: 16px;
+  height: 16px;
+  border-radius: 5px;
+  border: 1px solid var(--ep-border-strong);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background .15s ease-out, border-color .15s ease-out;
+}
+
+.ep-check__box svg { opacity: 0; }
+.ep-check.ep-is-on .ep-check__box { background: var(--ep-accent-primary); border-color: var(--ep-accent-primary); }
+.ep-check.ep-is-on .ep-check__box svg { opacity: 1; }
+.ep-check__label { font-size: 11.5px; color: var(--ep-text-body); }
+
+.ep-check--sm .ep-check__box { width: 15px; height: 15px; border-radius: 4px; }
+
+/* toggle switch */
+.ep-switch {
+  width: 34px;
+  height: 19px;
+  border-radius: 10px;
+  background: var(--ep-border-strong);
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  box-sizing: border-box;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  transition: background .15s ease-out, justify-content 0s;
+}
+
+.ep-switch__knob { width: 15px; height: 15px; border-radius: 50%; background: #fff; transition: transform .15s ease-out; }
+.ep-switch.ep-is-on { background: var(--ep-accent-primary); }
+.ep-switch.ep-is-on .ep-switch__knob { transform: translateX(15px); }
+
+.ep-switch-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.ep-switch-row__label { font-size: 11.5px; color: var(--ep-text-body); }
+
+.ep-info-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 1px solid var(--ep-border-strong);
+  color: var(--ep-text-muted);
+  font-size: 8.5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ep-progress { height: 5px; border-radius: 3px; background: var(--ep-surface-inset); overflow: hidden; }
+.ep-progress__fill { height: 5px; border-radius: 3px; background: var(--ep-accent-primary); }
+
+.ep-pager { display: flex; align-items: center; gap: 7px; }
+
+.ep-pager button {
+  font-size: 11px;
+  color: var(--ep-text-body);
+  border: 1px solid var(--ep-border-strong);
+  border-radius: 8px;
+  padding: 5px 10px;
+  transition: background .15s ease-out;
+}
+
+.ep-pager button:hover { background: var(--ep-surface-inset); }
+.ep-pager button.ep-is-active { font-weight: 700; color: #fff; background: var(--ep-accent-fill); border-color: transparent; }
+.ep-pager button.ep-is-arrow { color: var(--ep-text-muted); padding: 5px 9px; }
+
+.ep-dots { display: flex; gap: 5px; margin-top: 4px; }
+.ep-dots span { height: 3px; width: 22px; border-radius: 2px; background: var(--ep-border-strong); }
+.ep-dots span.ep-is-on { background: var(--ep-accent-primary); }
+
+/* the bar is 3px but the button gives it a 15px tall target */
+.ep-dots button { padding: 6px 0; background: none; border: 0; }
+
+.ep-dots button::after {
+  content: '';
+  display: block;
+  height: 3px;
+  width: 22px;
+  border-radius: 2px;
+  background: var(--ep-border-strong);
+  transition: background .2s ease-out;
+}
+
+.ep-dots button:hover::after { background: var(--ep-text-muted); }
+.ep-dots button.ep-is-on::after { background: var(--ep-accent-primary); }
+

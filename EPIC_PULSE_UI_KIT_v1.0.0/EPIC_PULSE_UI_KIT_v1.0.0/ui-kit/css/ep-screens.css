@@ -1,0 +1,693 @@
+/* EPIC Pulse UI Kit — screen assemblies
+   Layer 10. The layouts whole screens are built from: the home split, the
+   dashboard grid, the builder canvas and inspector, the metric header, the
+   report document surface and the settings panels.
+   Requires: tokens, reset, base, controls, surfaces, data. */
+
+/* Pulse Home */
+
+.ep-home-body {
+  display: flex;
+  gap: 18px;
+  flex: 1;
+  min-height: 0;
+  align-items: flex-start;
+}
+
+.ep-home-body__feed { flex: 1.55; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.ep-home-body__side { width: 344px; flex-shrink: 0; display: flex; flex-direction: column; gap: 14px; }
+
+.ep-home-feed-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.ep-home-feed-head__filters { display: flex; gap: 7px; flex-wrap: wrap; }
+
+@media (max-width: 1199px) {
+  .ep-home-body { flex-direction: column; }
+  .ep-home-body__feed, .ep-home-body__side { width: auto; flex: initial; }
+  .ep-home-body__side { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+}
+
+@media (max-width: 767px) {
+  .ep-home-body__side { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Analytics Dashboard — the wall of graphs */
+
+.ep-dash-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  grid-template-rows: minmax(284px, auto) minmax(284px, auto);
+  gap: 16px;
+  min-width: 0;
+}
+
+.ep-dash-grid > .ep-dg-tall { grid-column: 1 / 2; grid-row: 1 / 3; }
+
+/* the tall tile spans two rows, so its chart grows into the space rather
+   than leaving it blank (the design source's fixed-height frame could not) */
+.ep-dash-grid > .ep-dg-tall .ep-chart--bars { flex: 1; height: auto; min-height: 283px; }
+.ep-dash-grid > .ep-dg-a { grid-column: 2 / 3; grid-row: 1 / 2; }
+.ep-dash-grid > .ep-dg-b { grid-column: 3 / 4; grid-row: 1 / 2; }
+.ep-dash-grid > .ep-dg-c { grid-column: 2 / 3; grid-row: 2 / 3; }
+.ep-dash-grid > .ep-dg-d { grid-column: 3 / 4; grid-row: 2 / 3; }
+.ep-dash-grid > .ep-dg-full { grid-column: 1 / 4; }
+.ep-dash-grid > .ep-dg-third { grid-column: 1 / 2; }
+.ep-dash-grid > .ep-dg-two { grid-column: 2 / 4; }
+
+@media (max-width: 1279px) {
+  .ep-dash-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+  }
+  .ep-dash-grid > * { grid-column: auto !important; grid-row: auto !important; }
+  .ep-dash-grid > .ep-dg-tall,
+  .ep-dash-grid > .ep-dg-full,
+  .ep-dash-grid > .ep-dg-two { grid-column: 1 / -1 !important; }
+}
+
+@media (max-width: 767px) {
+  .ep-dash-grid { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .ep-dash-grid > * { grid-column: 1 / -1 !important; }
+}
+
+.ep-donut-row { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+
+@media (max-width: 479px) {
+  .ep-donut-row { gap: 14px; }
+}
+
+/* dashboard state demo switcher — prototype affordance, uses the existing
+   segmented control so no new control was designed */
+.ep-state-switch { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ep-state-switch__label { font-size: 10px; font-weight: 700; letter-spacing: .8px; color: var(--ep-text-muted); }
+
+/* Dashboard Builder */
+
+.ep-builder { flex: 1; display: flex; min-height: 0; align-items: stretch; }
+
+.ep-builder__canvas {
+  flex: 1;
+  padding: 20px 22px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: minmax(230px, 1fr);
+  gap: 16px;
+  min-width: 0;
+  align-content: start;
+}
+
+/* The panel chrome spans the whole column so the border and fill still reach
+   the bottom of a tall canvas, but the controls live in a sticky inner box.
+   Without that split the inspector stretched with the canvas and its fields
+   drifted apart as tiles were added. */
+.ep-builder__inspector {
+  width: 336px;
+  flex-shrink: 0;
+  border-left: 1px solid var(--ep-border-subtle);
+  background: var(--ep-surface-card);
+}
+
+.ep-builder__inspector-inner {
+  position: sticky;
+  top: var(--ep-topbar-h);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 18px;
+  max-height: calc(100vh - var(--ep-topbar-h));
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.ep-builder-tile {
+  background: var(--ep-surface-card);
+  border: 1px solid var(--ep-border-subtle);
+  border-radius: var(--ep-radius-lg);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  min-width: 0;
+  /* no overflow:hidden here — it would clip the SELECTED flag, which sits
+     at top:-9px outside the tile box */
+}
+
+.ep-builder-tile.ep-is-selected { border: 2px solid var(--ep-accent-primary); }
+.ep-builder-tile.ep-is-selected .ep-builder-tile__flag { display: block; }
+
+.ep-builder-tile__flag {
+  display: none;
+  position: absolute;
+  top: -9px;
+  left: 14px;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--ep-accent-fill);
+  border-radius: 5px;
+  padding: 2px 7px;
+}
+
+.ep-builder-tile__head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.ep-builder-tile__name { font-size: 12.5px; font-weight: 700; color: var(--ep-text-heading); }
+.ep-builder-tile__tools { display: flex; gap: 8px; color: var(--ep-text-muted); }
+.ep-builder-tile__tools button:hover { color: var(--ep-accent-primary); }
+.ep-builder-tile__viz { flex: 1; min-height: 110px; overflow: hidden; border-radius: 6px; }
+.ep-builder-tile__viz svg { width: 100%; height: 100%; display: block; }
+
+/* the KPI-tile form is a number rather than a chart */
+.ep-builder-tile__kpi {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 110px;
+}
+
+.ep-builder-tile__kpi-value { font-size: 30px; font-weight: 700; color: var(--ep-text-heading); line-height: 1; }
+.ep-builder-tile__kpi-meta { font-size: 10.5px; color: var(--ep-text-muted); }
+
+.ep-builder-drop {
+  border: 2px dashed var(--ep-border-strong);
+  border-radius: var(--ep-radius-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 230px;
+  text-align: center;
+  padding: 16px;
+  transition: border-color .15s ease-out, background .15s ease-out;
+}
+
+.ep-builder-drop:hover { border-color: var(--ep-accent-primary); background: color-mix(in oklab, var(--ep-accent-primary) 5%, transparent); }
+
+.ep-builder-drop__plus {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--ep-surface-inset);
+  color: var(--ep-accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.ep-form-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; }
+.ep-form-grid--gallery { gap: 9px; }
+
+.ep-form-swatch {
+  border: 1px solid var(--ep-border-strong);
+  border-radius: 9px;
+  height: 34px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2px;
+  padding: 5px;
+  font-size: 10px;
+  color: var(--ep-text-muted);
+}
+
+.ep-form-swatch--mid { align-items: center; }
+.ep-form-swatch.ep-is-active { border: 2px solid var(--ep-accent-primary); }
+.ep-form-swatch__bar { width: 4px; background: var(--ep-chart-1); }
+
+.ep-gallery-card {
+  border: 1px solid var(--ep-border-strong);
+  border-radius: 11px;
+  padding: 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  text-align: center;
+  transition: border-color .15s ease-out;
+}
+
+.ep-gallery-card:hover { border-color: var(--ep-accent-primary); }
+.ep-gallery-card.ep-is-active { border: 2px solid var(--ep-accent-primary); }
+.ep-gallery-card span { font-size: 9.5px; color: var(--ep-text-muted); }
+.ep-gallery-card.ep-is-active span { font-weight: 700; color: var(--ep-text-heading); }
+
+@media (max-width: 1279px) {
+  .ep-builder { flex-direction: column; }
+  .ep-builder__canvas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ep-builder__inspector { width: auto; border-left: 0; border-top: 1px solid var(--ep-border-subtle); }
+  /* stacked: nothing to pin to, so let it flow with the page */
+  .ep-builder__inspector-inner { position: static; max-height: none; overflow: visible; }
+}
+
+@media (max-width: 767px) {
+  .ep-builder__canvas { grid-template-columns: minmax(0, 1fr); padding: 14px; gap: 14px; }
+  .ep-builder__inspector-inner { padding: 14px; }
+  .ep-form-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Metric Drill-down */
+
+.ep-metric-head {
+  background: var(--ep-surface-card);
+  border: 1px solid var(--ep-border-subtle);
+  border-radius: var(--ep-radius-lg);
+  box-shadow: var(--ep-shadow-card);
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  flex-wrap: wrap;
+}
+
+.ep-metric-head__block { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.ep-metric-head__block--def { max-width: 300px; }
+.ep-metric-head__label { font-size: 11px; color: var(--ep-text-muted); }
+.ep-metric-head__value { font-size: 38px; font-weight: 700; color: var(--ep-text-heading); line-height: 1; }
+.ep-metric-head__delta { font-size: 13px; font-weight: 700; }
+.ep-metric-head__note { font-size: 11px; color: var(--ep-text-muted); }
+.ep-metric-head__def { font-size: 11.5px; color: var(--ep-text-body); line-height: 1.5; }
+.ep-metric-head__rule { height: 56px; width: 1px; background: var(--ep-border-subtle); flex-shrink: 0; }
+.ep-metric-head__actions { display: flex; flex-direction: column; gap: 8px; }
+
+@media (max-width: 1199px) {
+  .ep-metric-head { gap: 20px; }
+  .ep-metric-head__rule { display: none; }
+  .ep-metric-head__actions { flex-direction: row; width: 100%; }
+  .ep-metric-head__actions .ep-btn { flex: 1; }
+}
+
+@media (max-width: 767px) {
+  .ep-metric-head { padding: 16px; gap: 14px; }
+  .ep-metric-head__value { font-size: 30px; }
+  .ep-metric-head__block--def { max-width: none; }
+  .ep-metric-head__actions { flex-direction: column; }
+}
+
+.ep-split-135 { display: grid; grid-template-columns: 1.35fr 1fr; gap: 16px; min-width: 0; }
+.ep-split-100-135 { display: grid; grid-template-columns: 1fr 1.35fr; gap: 16px; min-width: 0; }
+.ep-split-160 { display: grid; grid-template-columns: 1.6fr 1fr; gap: 16px; min-width: 0; }
+
+@media (max-width: 1199px) {
+  .ep-split-135, .ep-split-100-135, .ep-split-160 { grid-template-columns: minmax(0, 1fr); }
+}
+
+.ep-side-stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+
+/* Root-Cause Explorer */
+
+.ep-evidence-note { display: flex; gap: 10px; }
+.ep-evidence-note__text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.ep-evidence-note__body { font-size: 11.5px; color: var(--ep-text-body); line-height: 1.5; }
+.ep-evidence-note__by { font-size: 10px; color: var(--ep-text-muted); }
+
+.ep-compare-pair { display: flex; gap: 12px; }
+.ep-compare-pair .ep-chart { flex: 1; height: 90px; }
+
+@media (max-width: 479px) {
+  .ep-compare-pair { flex-direction: column; }
+}
+
+/* Report Library */
+
+.ep-lib-toolbar { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+@media (max-width: 1023px) {
+  .ep-lib-toolbar { display: none; }
+}
+
+/* Report Detail */
+
+.ep-detail-head {
+  background: var(--ep-surface-card);
+  border-bottom: 1px solid var(--ep-border-subtle);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.ep-detail-head__titles { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.ep-detail-head__name { font-size: 18px; font-weight: 700; color: var(--ep-text-heading); }
+.ep-detail-head__meta { font-size: 11.5px; color: var(--ep-text-muted); }
+.ep-detail-head__actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+@media (max-width: 767px) {
+  .ep-detail-head { padding: 14px; gap: 10px; }
+  .ep-detail-head__name { font-size: 16px; }
+  .ep-detail-head__actions { width: 100%; }
+  .ep-detail-head__actions .ep-btn { flex: 1; }
+}
+
+.ep-facts { display: flex; gap: 28px; flex-wrap: wrap; border-top: 1px solid var(--ep-border-subtle); padding-top: 12px; }
+.ep-facts__item { display: flex; flex-direction: column; gap: 3px; }
+.ep-facts__label { font-size: 10px; color: var(--ep-text-muted); letter-spacing: .4px; }
+.ep-facts__value { font-size: 12px; font-weight: 700; color: var(--ep-text-heading); }
+
+.ep-lineage-row {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--ep-border-subtle);
+  flex-wrap: wrap;
+}
+
+.ep-lineage-row:last-of-type { border-bottom: 0; padding-bottom: 0; }
+.ep-lineage-row__dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ep-accent-primary); flex-shrink: 0; }
+.ep-lineage-row__dot--idle { background: var(--ep-text-muted); }
+.ep-lineage-row__name { flex: 1; font-size: 11.5px; color: var(--ep-text-body); min-width: 0; }
+.ep-lineage-row__sync { font-size: 10.5px; color: var(--ep-text-muted); }
+
+.ep-thumb-table { display: flex; flex-direction: column; gap: 6px; }
+.ep-thumb-table__row { display: flex; gap: 6px; }
+.ep-thumb-table__cell { height: 8px; border-radius: 3px; background: var(--ep-surface-inset); }
+.ep-thumb-table__cell.ep-is-flag { background: #1d306d; opacity: .7; }
+
+.ep-kv-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.ep-kv-row__k { font-size: 11.5px; color: var(--ep-text-body); }
+.ep-kv-row__v { font-size: 11px; color: var(--ep-text-muted); }
+
+.ep-activity-item { display: flex; flex-direction: column; gap: 2px; }
+.ep-activity-item__what { font-size: 11.5px; color: var(--ep-text-body); }
+.ep-activity-item__when { font-size: 10px; color: var(--ep-text-muted); letter-spacing: .3px; }
+
+/* Report Viewer — document view keeps a paper surface in both themes */
+
+.ep-viewer-bar { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.ep-viewer-bar__tools { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+.ep-paper-tray {
+  background: var(--ep-paper-tray);
+  border-radius: 11px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+  min-height: 420px;
+}
+
+.ep-paper {
+  width: 400px;
+  flex-shrink: 0;
+  background: var(--ep-paper-sheet);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, .18);
+  padding: 26px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: var(--ep-paper-body);
+}
+
+.ep-paper__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 2px solid var(--ep-paper-brand);
+  padding-bottom: 9px;
+}
+
+/* Both shipped logo files are LIGHT lockups (assets/epic-pulse-logo.png and
+   epic-pulse-logo-navy-tight.png are the same white mark), and the document
+   sheet is white — so the design source's paper header rendered an invisible logo.
+   The specification forbids re-colouring the lockup, so it gets a brand-dark plate to
+   sit on instead, the same treatment the sidebar and auth panel use. Swap
+   this for a plain <img> if a true navy lockup is ever supplied. */
+.ep-paper__brandplate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ep-paper-brand);
+  border-radius: 3px;
+  padding: 4px 6px;
+  flex-shrink: 0;
+}
+
+.ep-paper__logo { height: 14px; width: 34px; object-fit: contain; display: block; }
+.ep-paper__stamp { font-size: 8px; color: var(--ep-paper-muted); letter-spacing: .5px; }
+.ep-paper__title { font-size: 14px; font-weight: 700; color: var(--ep-paper-ink); }
+.ep-paper__lede { font-size: 8.5px; color: var(--pu-gray-700); line-height: 1.6; }
+
+.ep-paper__table { display: flex; flex-direction: column; border-top: 1px solid var(--ep-paper-rule); }
+
+.ep-paper__tr {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr .6fr .6fr;
+  gap: 6px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--ep-paper-rule-soft);
+}
+
+.ep-paper__tr--head { border-bottom: 1px solid var(--ep-paper-rule); }
+.ep-paper__th { font-size: 7px; font-weight: 700; color: var(--ep-paper-muted); letter-spacing: .5px; }
+.ep-paper__td { font-size: 8px; color: var(--ep-paper-body); }
+.ep-paper__td--flag { font-weight: 700; color: var(--ep-paper-brand); text-align: right; }
+.ep-paper__td--num { text-align: right; }
+.ep-paper__th--num { text-align: right; }
+
+.ep-paper__foot {
+  margin-top: auto;
+  border-top: 1px solid var(--ep-paper-rule);
+  padding-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.ep-paper__foot span { font-size: 7px; color: var(--ep-paper-faint); }
+
+@media (max-width: 479px) {
+  .ep-paper-tray { padding: 12px; }
+  .ep-paper { width: 320px; padding: 20px 18px; }
+}
+
+/* Placeholder screens — nav destinations that land in Phases 4-6.
+   Reuses the design source's own empty-state component so nothing new is drawn. */
+
+.ep-phase-note {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  text-align: center;
+  max-width: 480px;
+}
+
+.ep-phase-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 520px;
+  text-align: left;
+  margin-top: 6px;
+}
+
+.ep-phase-list__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--ep-surface-card);
+  border: 1px solid var(--ep-border-subtle);
+  border-radius: var(--ep-radius-md);
+  padding: 10px 13px;
+  font-size: 11.5px;
+  color: var(--ep-text-body);
+}
+
+/* Shared with Me & Links — the receiving end of every share
+
+   A shared item is a message about a thing, so the row has to carry both:
+   who sent it and what they said on the left, and how much access you were
+   given on the right. That is the one shape here the component vocabulary
+   did not already have; the two tables below it are plain .ep-dtable. */
+
+.ep-share-item { display: flex; gap: 14px; align-items: flex-start; }
+
+/* the unread marker sits in the gutter, level with the sender avatar, so a
+   scan down the left edge answers "what is new" before reading anything */
+.ep-share-item__flag {
+  width: 7px;
+  padding-top: 13px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.ep-share-item__main { flex: 1; display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+.ep-share-item__head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ep-share-item__name { font-size: 14px; font-weight: 700; color: var(--ep-text-heading); }
+a.ep-share-item__name:hover { color: var(--ep-accent-primary); }
+.ep-share-item__meta { font-size: 11px; color: var(--ep-text-muted); }
+
+/* the sender's message. Quoted rather than styled as body copy, because it
+   is the one thing on the row somebody actually typed. */
+.ep-share-item__note {
+  margin: 1px 0 0;
+  border-left: 2px solid var(--ep-border-strong);
+  padding-left: 11px;
+  font-size: 11.5px;
+  font-style: italic;
+  color: var(--ep-text-body);
+  line-height: 1.55;
+}
+
+/* the filters that travelled with the item — the client's headline
+   requirement is that they arrive intact, so the row shows them */
+.ep-share-item__ctx { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 2px; }
+.ep-share-item__ctx-label { font-size: 10px; font-weight: 700; letter-spacing: .4px; color: var(--ep-text-muted); }
+
+.ep-share-item__side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 7px;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.ep-share-item__access { font-size: 11px; font-weight: 700; color: var(--ep-text-heading); }
+.ep-share-item__expiry { font-size: 10px; color: var(--ep-text-muted); }
+/* An expiry inside the week has to stand out, and it is needed both on
+   the card and in the Links table's own cell — so it is a plain
+   utility rather than an element of .ep-share-item. The palette has no
+   amber: the system marks attention with indigo (.ep-badge--severity does
+   the same), so an expiry does too. */
+.ep-t-attn { color: var(--ep-accent-secondary); font-weight: 700; }
+
+/* the rule between the sender/date menus and the type facets only reads as a
+   separator while they share a line — once the row wraps it dangles */
+@media (max-width: 767px) {
+  .ep-share-filters > .ep-divider-v { display: none; }
+}
+.ep-share-item__actions { display: flex; align-items: center; gap: 7px; margin-top: 2px; }
+
+/* below the tile breakpoint the access column has nowhere to go, so it
+   unstacks under the message instead of squeezing the item name */
+@media (max-width: 767px) {
+  .ep-share-item { flex-wrap: wrap; }
+  .ep-share-item__side {
+    text-align: left;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    padding-left: 21px;
+  }
+  .ep-share-item__actions { margin-top: 0; }
+}
+
+/* a link's URL, shown as the copyable thing it is */
+.ep-link-url {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10.5px;
+  color: var(--ep-text-muted);
+  background: var(--ep-surface-inset);
+  border: 1px solid var(--ep-border-subtle);
+  border-radius: 7px;
+  padding: 3px 7px;
+  display: inline-block;
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* Distribution Center — one run of one schedule
+
+   The delivery-history drawer's row. A run is only interesting when it
+   failed, so a successful run stays a single quiet line and a failed one
+   grows the reason and the retry that answers it. */
+
+.ep-run-row {
+  background: var(--ep-surface-inset);
+  border: 1px solid var(--ep-border-subtle);
+  border-radius: var(--ep-radius-md);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
+}
+
+/* the same left rule .ep-card--signal uses, so a failure reads the same way
+   here as a breach does on Pulse Home */
+.ep-run-row--failed {
+  border-left: 3px solid var(--ep-accent-secondary);
+  background: var(--ep-surface-card);
+}
+
+.ep-run-row__head { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; }
+.ep-run-row__when { font-size: 11.5px; font-weight: 700; color: var(--ep-text-heading); }
+.ep-run-row__meta { font-size: 10.5px; color: var(--ep-text-muted); }
+
+.ep-run-row__why {
+  margin: 2px 0 3px;
+  font-size: 11px;
+  color: var(--ep-text-body);
+  line-height: 1.5;
+}
+
+/* Settings & About */
+
+/* The unsaved-changes guard. It sticks to the bottom of the viewport while
+   there is something to save, because the thing you edited may be several
+   sections up by the time you decide to keep it. */
+.ep-dirty-bar {
+  position: sticky;
+  bottom: 12px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: var(--ep-surface-card);
+  border: 1px solid var(--ep-accent-primary);
+  border-radius: var(--ep-radius-lg);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, .35);
+  padding: 11px 14px;
+}
+
+.ep-dirty-bar__text { font-size: 11.5px; font-weight: 700; color: var(--ep-text-heading); flex: 1; min-width: 160px; }
+
+/* read-only facts, two to a row — the Environment and About panels are
+   mostly this shape, and .ep-facts is a single flex line */
+.ep-env-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px 26px;
+}
+
+.ep-env-grid > .ep-kv-row {
+  border-bottom: 1px solid var(--ep-border-subtle);
+  padding-bottom: 8px;
+}
+
+@media (max-width: 767px) {
+  .ep-env-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* the theme preview: a real tile in the theme you just picked, so the
+   choice is visible in place rather than described */
+.ep-theme-preview { display: flex; gap: 12px; flex-wrap: wrap; }
+.ep-theme-preview > * { flex: 1; min-width: 180px; }
+
+/* Both shipped logo files are white lockups, so the About panel gives the
+   mark the same brand-dark plate the paper header uses. */
+.ep-about-plate {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ep-surface-sidebar-top, var(--ep-paper-brand));
+  border-radius: 10px;
+  padding: 12px 16px;
+  flex-shrink: 0;
+}
+
+.ep-about-plate img { height: 26px; width: auto; object-fit: contain; display: block; }

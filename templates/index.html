@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epic Advice Monitor</title>
+    <link rel="stylesheet" href="/static/epic-pulse/css/ep-fonts.css">
+    <link rel="stylesheet" href="/static/epic-pulse/css/ep-tokens.css">
+    <link rel="stylesheet" href="/static/epic-pulse/css/ep-base.css">
+    <link rel="stylesheet" href="/static/epic-pulse/css/ep-controls.css">
+    <link rel="stylesheet" href="/static/epic-pulse/css/ep-surfaces.css">
+    <link rel="stylesheet" href="/static/epic-pulse/css/ep-data.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Top Navigation Header -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="brand">
+                <div class="brand-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="brand-title">Epic <span class="accent-text">Advice Monitor</span></h1>
+                </div>
+            </div>
+
+            <div class="nav-actions">
+                <div class="status-indicator ep-topbar__fresh" id="system-status" title="Automatic sync status">
+                    <span class="pulse-dot"></span>
+                    <span class="status-text" id="status-label">Connecting to pipeline...</span>
+                </div>
+                <a href="/api/download" class="btn btn-primary ep-btn ep-btn--primary ep-btn--pill-lg" id="btn-download-excel" download title="Download the workbook to open it in Excel">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                        <line x1="3" y1="9" x2="21" y2="9"></line>
+                        <line x1="9" y1="3" x2="9" y2="21"></line>
+                    </svg>
+                    <span>Download Excel</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="main-container">
+        <section class="metrics-grid ep-grid ep-grid--4 ep-grid--16">
+            <div class="metric-card ep-kpi metric-card--received">
+                <div class="metric-header">
+                    <span class="metric-icon metric-icon--blue" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 5h16v15H4z"></path>
+                            <path d="M4 13h4l2 3h4l2-3h4"></path>
+                        </svg>
+                    </span>
+                    <span class="metric-title ep-kpi__label">Advices Received</span>
+                </div>
+                <div class="metric-value ep-kpi__value font-mono" id="kpi-total-received">--</div>
+                <div class="metric-footer ep-kpi__caption">Received by the pipeline</div>
+            </div>
+
+            <div class="metric-card ep-kpi metric-card--extracted">
+                <div class="metric-header">
+                    <span class="metric-icon metric-icon--violet" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M7 3h7l5 5v13H7z"></path>
+                            <path d="M14 3v5h5"></path>
+                            <path d="m10 15 2 2 4-4"></path>
+                        </svg>
+                    </span>
+                    <span class="metric-title ep-kpi__label">Successfully Extracted</span>
+                </div>
+                <div class="metric-value ep-kpi__value font-mono" id="kpi-total-records">--</div>
+                <div class="metric-footer ep-kpi__caption">Advice data added to the tracker</div>
+            </div>
+
+            <div class="metric-card ep-kpi metric-card--verified">
+                <div class="metric-header">
+                    <span class="metric-icon metric-icon--green" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 3 19 6v5c0 4.5-2.9 7.8-7 10-4.1-2.2-7-5.5-7-10V6z"></path>
+                            <path d="m9 12 2 2 4-4"></path>
+                        </svg>
+                    </span>
+                    <span class="metric-title ep-kpi__label">Data Verified</span>
+                </div>
+                <div class="metric-value ep-kpi__value font-mono" id="kpi-verified">--</div>
+                <div class="metric-footer ep-kpi__caption">Passed the internal consistency checks</div>
+            </div>
+
+            <div class="metric-card ep-kpi metric-card--review">
+                <div class="metric-header">
+                    <span class="metric-icon metric-icon--amber" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 3 22 20H2z"></path>
+                            <path d="M12 9v5"></path>
+                            <path d="M12 17h.01"></path>
+                        </svg>
+                    </span>
+                    <span class="metric-title ep-kpi__label">Needs Review</span>
+                </div>
+                <div class="metric-value ep-kpi__value font-mono" id="kpi-needs-review">--</div>
+                <div class="metric-footer ep-kpi__caption">Data checks found an issue</div>
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <div class="tab-bar">
+            <button class="tab-btn ep-btn active" data-tab="tab-records">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="3" y1="9" x2="21" y2="9"></line>
+                    <line x1="3" y1="15" x2="21" y2="15"></line>
+                    <line x1="9" y1="3" x2="9" y2="21"></line>
+                    <line x1="15" y1="3" x2="15" y2="21"></line>
+                </svg>
+                <span>Advice Data</span>
+                <span class="tab-badge" id="tab-records-count">0</span>
+            </button>
+            <button class="tab-btn ep-btn" data-tab="tab-registry">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                </svg>
+                <span>Processing Log</span>
+            </button>
+        </div>
+
+        <!-- TAB 1: WORKBOOK RECORDS -->
+        <section class="tab-pane active" id="tab-records">
+            <div class="card ep-card records-card">
+                <div class="records-header">
+                    <div>
+                        <h2>All Advice Records</h2>
+                        <p class="card-subtitle">Read-only Excel data. Expand a row to see every field.</p>
+                    </div>
+
+                    <!-- Search Toolbar -->
+                    <div class="table-toolbar">
+                        <div class="search-box">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                            <input type="text" id="record-search" placeholder="Search all advice...">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Responsive Table Wrapper -->
+                <div class="table-responsive ep-table-wrap">
+                    <table class="data-table ep-dtable" id="records-table">
+                        <thead>
+                            <tr>
+                                <th>Advice Type</th>
+                                <th>Advice Date</th>
+                                <th>Reference</th>
+                                <th>Unit</th>
+                                <th>Beneficiary</th>
+                                <th>Data Check</th>
+                                <th>Issue Found</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="records-tbody">
+                            <tr>
+                                <td colspan="8" class="text-center py-4 text-muted">Loading advice records...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-footer">
+                    <span id="records-summary-count">Showing 0 records</span>
+                    <span class="text-muted" style="font-size: 0.8rem;">Auto-refreshes from the pipeline</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: AUDIT & INGESTION LOG -->
+        <section class="tab-pane" id="tab-registry">
+            <div class="card ep-card registry-card">
+                <div class="card-header">
+                    <div>
+                        <h2>Advice Processing Log</h2>
+                        <p class="card-subtitle">Extraction results and internal consistency checks</p>
+                    </div>
+                </div>
+
+                <div class="table-responsive ep-table-wrap">
+                    <table class="data-table ep-dtable">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Data Check</th>
+                                <th>File Name</th>
+                                <th>Bank</th>
+                                <th>Document Type</th>
+                                <th>SHA-256 Hash</th>
+                                <th>Timestamp</th>
+                                <th>Details / Error</th>
+                            </tr>
+                        </thead>
+                        <tbody id="registry-tbody">
+                            <tr>
+                                <td colspan="8" class="text-center py-4 text-muted">Loading audit entries...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

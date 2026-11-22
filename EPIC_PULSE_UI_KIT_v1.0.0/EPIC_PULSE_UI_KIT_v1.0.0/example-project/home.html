@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home · EPIC Pulse</title>
+<link rel="icon" href="favicon.svg">
+
+<link rel="stylesheet" href="ui-kit/css/ep-fonts.css">
+<link rel="stylesheet" href="ui-kit/css/ep-tokens.css">
+<link rel="stylesheet" href="ui-kit/css/ep-reset.css">
+<link rel="stylesheet" href="ui-kit/css/ep-base.css">
+<link rel="stylesheet" href="ui-kit/css/ep-controls.css">
+<link rel="stylesheet" href="ui-kit/css/ep-surfaces.css">
+<link rel="stylesheet" href="ui-kit/css/ep-data.css">
+<link rel="stylesheet" href="ui-kit/css/ep-shell.css">
+<link rel="stylesheet" href="ui-kit/css/ep-overlays.css">
+<link rel="stylesheet" href="ui-kit/css/ep-screens.css">
+<link rel="stylesheet" href="ui-kit/css/ep-extended.css">
+<script src="ui-kit/js/ep-theme.js"></script>
+</head>
+
+<body data-ep-nav="home" data-ep-crumb="PULSE" data-ep-title="Home"
+      data-ep-period="Dec 2026" data-ep-asof="18 Dec 4:41 PM"
+      data-ep-assistant-ctx="Pulse Home · Unit 2 · Dec">
+
+<div class="ep-app">
+  <div data-ep-mount="sidebar"></div>
+  <div class="ep-app__main">
+    <div data-ep-mount="topbar"></div>
+
+    <main class="ep-page">
+
+      <div class="ep-page-head">
+        <div class="ep-col ep-gap-2">
+          <h1 class="ep-h-page">Good afternoon, Karim</h1>
+          <p class="ep-t-md ep-t-muted" style="margin:0">Unit 2 &middot; six vital signs, as of 4:41 PM</p>
+        </div>
+        <div class="ep-page-head__actions">
+          <button class="ep-btn ep-btn--ghost ep-btn--pill-lg" type="button" data-ep-open="filters">Filters</button>
+          <a class="ep-btn ep-btn--primary ep-btn--pill-lg" href="report-library.html">Browse reports</a>
+        </div>
+      </div>
+
+        <div class="ep-grid ep-grid--kpi6 ep-grid--12">
+          <a class="ep-kpi ep-kpi--chart" href="dashboard.html?m=output">
+            <span class="ep-kpi__label">Output vs Plan</span>
+            <span class="ep-kpi__head">
+              <span class="ep-kpi__value">94.2%</span>
+              <span class="ep-kpi__delta ep-up">&#9650; 1.4 pts</span>
+            </span>
+            <span class="ep-kpi__chart">
+                <svg viewBox="0 0 152 60" fill="none" preserveAspectRatio="none" role="img"
+                   aria-label="Daily output for twelve days against a plan of 4,200 units. Five days fell short.">
+                <line x1="2" y1="56.0" x2="150" y2="56.0" stroke="var(--ep-border-strong)" stroke-width="1"/>
+                <rect x="2" y="32.2" width="9" height="23.8" rx="1" fill="var(--ep-chart-2)"/>
+                <rect x="14" y="22.2" width="9" height="33.8" rx="1" fill="var(--ep-chart-1)"/>
+                <rect x="27" y="27.2" width="9" height="28.8" rx="1" fill="var(--ep-chart-2)"/>
+                <rect x="40" y="16.0" width="9" height="40.0" rx="1" fill="var(--ep-chart-1)"/>
+                <rect x="52" y="46.0" width="9" height="10.0" rx="1" fill="var(--ep-chart-2)"/>
+                <rect x="64" y="24.4" width="9" height="31.6" rx="1" fill="var(--ep-chart-1)"/>
+                <rect x="77" y="13.5" width="9" height="42.5" rx="1" fill="var(--ep-chart-1)"/>
+                <rect x="90" y="31.6" width="9" height="24.4" rx="1" fill="var(--ep-chart-2)"/>
+                <rect x="102" y="18.8" width="9" height="37.2" rx="1" fill="var(--ep-chart-1)"/>
+                <rect x="114" y="11.6" width="9" height="44.4" rx="1" fill="var(--ep-chart-1)"/>
+                <rect x="127" y="41.0" width="9" height="15.0" rx="1" fill="var(--ep-chart-2)"/>
+                <rect x="140" y="23.5" width="9" height="32.5" rx="1" fill="var(--ep-chart-1)"/>
+                <line x1="2" y1="24.8" x2="150" y2="24.8" stroke="var(--ep-chart-label)" stroke-width="1.4" stroke-dasharray="5 4"/>
+              </svg>
+            </span>
+            <span class="ep-kpi__caption">vs plan 4,200/day &middot; 5 days short</span>
+          </a>
+        
+          <a class="ep-kpi ep-kpi--chart" href="dashboard.html?m=otd">
+            <span class="ep-kpi__label">On-Time Delivery</span>
+            <span class="ep-kpi__head">
+              <span class="ep-kpi__value">87%</span>
+              <span class="ep-kpi__delta ep-down">&#9660; 3.0 pts</span>
+            </span>
+            <span class="ep-kpi__chart">
+                <svg viewBox="0 0 152 60" fill="none" preserveAspectRatio="none" role="img"
+                   aria-label="On-Time Delivery over eighteen days, sliding through the 90 percent floor and its 88 to 92 percent band to finish at 87.0.">
+                <rect x="2" y="22.0" width="148" height="21.3" fill="var(--ep-chart-1)" opacity=".12"/>
+                <line x1="2" y1="56.0" x2="150" y2="56.0" stroke="var(--ep-border-strong)" stroke-width="1"/>
+                <path d="M2.0,14.5C3.2,14.0 8.4,10.7 10.7,10.8C13.0,10.9 17.1,14.5 19.4,15.6C21.7,16.7 25.8,18.7 28.1,18.8C30.4,18.9 34.5,16.3 36.8,16.7C39.1,17.0 43.2,20.3 45.5,21.5C47.9,22.6 51.9,25.1 54.2,25.2C56.6,25.3 60.6,21.9 62.9,22.0C65.3,22.1 69.3,25.3 71.6,26.3C74.0,27.3 78.0,28.2 80.4,29.5C82.7,30.7 86.7,35.5 89.1,35.9C91.4,36.2 95.4,33.1 97.8,32.1C100.1,31.1 104.1,28.5 106.5,28.4C108.8,28.3 112.9,30.4 115.2,31.6C117.5,32.8 121.6,36.0 123.9,37.5C126.2,38.9 130.3,41.2 132.6,42.3C134.9,43.3 139.0,44.6 141.3,45.5C143.6,46.3 148.8,48.2 150.0,48.7L150.0,56.0L2.0,56.0Z" fill="var(--ep-chart-1)" opacity=".16"/>
+                <line x1="2" y1="32.7" x2="150" y2="32.7" stroke="var(--ep-chart-label)" stroke-width="1.4" stroke-dasharray="5 4"/>
+                <path d="M2.0,14.5C3.2,14.0 8.4,10.7 10.7,10.8C13.0,10.9 17.1,14.5 19.4,15.6C21.7,16.7 25.8,18.7 28.1,18.8C30.4,18.9 34.5,16.3 36.8,16.7C39.1,17.0 43.2,20.3 45.5,21.5C47.9,22.6 51.9,25.1 54.2,25.2C56.6,25.3 60.6,21.9 62.9,22.0C65.3,22.1 69.3,25.3 71.6,26.3C74.0,27.3 78.0,28.2 80.4,29.5C82.7,30.7 86.7,35.5 89.1,35.9C91.4,36.2 95.4,33.1 97.8,32.1C100.1,31.1 104.1,28.5 106.5,28.4C108.8,28.3 112.9,30.4 115.2,31.6C117.5,32.8 121.6,36.0 123.9,37.5C126.2,38.9 130.3,41.2 132.6,42.3C134.9,43.3 139.0,44.6 141.3,45.5C143.6,46.3 148.8,48.2 150.0,48.7" stroke="var(--ep-chart-2)" stroke-width="1.9" fill="none" stroke-linecap="round"/>
+                <circle cx="148.0" cy="48.7" r="2.6" fill="var(--ep-chart-2)"/>
+              </svg>
+            </span>
+            <span class="ep-kpi__caption">Floor 90% &middot; below it since 15 Dec</span>
+          </a>
+        
+          <a class="ep-kpi ep-kpi--chart" href="dashboard.html?m=efficiency">
+            <span class="ep-kpi__label">Line Efficiency</span>
+            <span class="ep-kpi__head">
+              <span class="ep-kpi__value">71.4%</span>
+              <span class="ep-kpi__delta ep-down">&#9660; 0.8 pts</span>
+            </span>
+            <span class="ep-kpi__chart">
+                <svg viewBox="0 0 152 60" fill="none" preserveAspectRatio="none" role="img"
+                   aria-label="The six lines ranked by efficiency, worst first: Line 4 at 64.1 and Line 2 at 67.8 fall left of the 70 percent floor marker; Line 3 leads at 80.4.">
+                <rect x="2" y="4.0" width="25.3" height="6" rx="1.5" fill="var(--ep-chart-6)"/>
+                <rect x="2" y="13.6" width="48.1" height="6" rx="1.5" fill="var(--ep-chart-6)"/>
+                <rect x="2" y="23.2" width="65.4" height="6" rx="1.5" fill="var(--ep-chart-2)"/>
+                <rect x="2" y="32.8" width="83.2" height="6" rx="1.5" fill="var(--ep-chart-2)"/>
+                <rect x="2" y="42.4" width="99.9" height="6" rx="1.5" fill="var(--ep-chart-1)"/>
+                <rect x="2" y="52.0" width="125.8" height="6" rx="1.5" fill="var(--ep-chart-3)"/>
+                <line x1="63.7" y1="2" x2="63.7" y2="58" stroke="var(--ep-chart-label)" stroke-width="1.4" stroke-dasharray="4 3"/>
+              </svg>
+            </span>
+            <span class="ep-kpi__caption">6 lines ranked &middot; 2 below floor</span>
+          </a>
+        
+          <a class="ep-kpi ep-kpi--chart" href="dashboard.html?m=dhu">
+            <span class="ep-kpi__label">DHU</span>
+            <span class="ep-kpi__head">
+              <span class="ep-kpi__value">4.6</span>
+              <span class="ep-kpi__delta ep-down">&#9650; 0.9</span>
+            </span>
+            <span class="ep-kpi__chart">
+                <svg viewBox="0 0 152 60" fill="none" preserveAspectRatio="none" role="img"
+                   aria-label="Defect reasons ranked, surface and alignment first; the cumulative line crosses the 80 percent marker at the fourth reason.">
+                <line x1="2" y1="56.0" x2="150" y2="56.0" stroke="var(--ep-border-strong)" stroke-width="1"/>
+                <line x1="2" y1="16.0" x2="150" y2="16.0" stroke="var(--ep-chart-label)" stroke-width="1.2" stroke-dasharray="4 3"/>
+                <rect x="2" y="10.0" width="19" height="46.0" rx="1" fill="var(--ep-chart-1)"/>
+                <rect x="27" y="26.2" width="19" height="29.8" rx="1" fill="var(--ep-chart-1)"/>
+                <rect x="52" y="33.9" width="19" height="22.1" rx="1" fill="var(--ep-chart-3)"/>
+                <rect x="77" y="39.8" width="19" height="16.2" rx="1" fill="var(--ep-chart-3)"/>
+                <rect x="102" y="45.4" width="19" height="10.6" rx="1" fill="var(--ep-chart-4)"/>
+                <rect x="127" y="49.2" width="19" height="6.8" rx="1" fill="var(--ep-chart-4)"/>
+                <path d="M11.5,39.3C14.0,38.3 31.5,30.4 36.5,28.5C41.5,26.6 56.5,21.9 61.5,20.5C66.5,19.1 81.5,15.6 86.5,14.7C91.5,13.7 106.5,11.5 111.5,10.8C116.5,10.2 134.0,8.6 136.5,8.4" stroke="var(--ep-chart-2)" stroke-width="1.6" fill="none"/>
+                <circle cx="11.5" cy="39.3" r="1.5" fill="var(--ep-chart-2)"/>
+                <circle cx="36.5" cy="28.5" r="1.5" fill="var(--ep-chart-2)"/>
+                <circle cx="61.5" cy="20.5" r="1.5" fill="var(--ep-chart-2)"/>
+                <circle cx="86.5" cy="14.7" r="1.5" fill="var(--ep-chart-2)"/>
+                <circle cx="111.5" cy="10.8" r="1.5" fill="var(--ep-chart-2)"/>
+                <circle cx="136.5" cy="8.4" r="1.5" fill="var(--ep-chart-2)"/>
+              </svg>
+            </span>
+            <span class="ep-kpi__caption">Top 6 defect reasons ranked</span>
+          </a>
+        
+          <a class="ep-kpi ep-kpi--chart" href="dashboard.html?m=cost">
+            <span class="ep-kpi__label">Cost per Unit</span>
+            <span class="ep-kpi__head">
+              <span class="ep-kpi__value">$2.84</span>
+              <span class="ep-kpi__delta ep-up">&#9660; $0.06</span>
+            </span>
+            <span class="ep-kpi__chart">
+                <svg viewBox="0 0 152 60" fill="none" preserveAspectRatio="none" role="img"
+                   aria-label="Cost per unit bridged from a plan of 2.90 dollars to an actual of 2.84: overtime and scrap add 9 cents, yield, mix and utilities give back 15.">
+                <line x1="2" y1="56.0" x2="150" y2="56.0" stroke="var(--ep-border-strong)" stroke-width="1"/>
+                <rect x="2" y="27.2" width="17" height="28.8" rx="1.5" fill="var(--ep-chart-5)"/>
+                <rect x="23" y="17.6" width="17" height="9.6" rx="1.5" fill="var(--ep-chart-2)"/>
+                <rect x="44" y="5.6" width="17" height="12.0" rx="1.5" fill="var(--ep-chart-2)"/>
+                <rect x="65" y="5.6" width="17" height="12.0" rx="1.5" fill="var(--ep-chart-1)"/>
+                <rect x="86" y="17.6" width="17" height="9.6" rx="1.5" fill="var(--ep-chart-1)"/>
+                <rect x="107" y="27.2" width="17" height="14.4" rx="1.5" fill="var(--ep-chart-1)"/>
+                <rect x="128" y="41.6" width="17" height="14.4" rx="1.5" fill="var(--ep-chart-accent)"/>
+                <line x1="19" y1="27.2" x2="23" y2="27.2" stroke="var(--ep-chart-label)" stroke-width="1" stroke-dasharray="4 3"/>
+                <line x1="40" y1="17.6" x2="44" y2="17.6" stroke="var(--ep-chart-label)" stroke-width="1" stroke-dasharray="4 3"/>
+                <line x1="61" y1="5.6" x2="65" y2="5.6" stroke="var(--ep-chart-label)" stroke-width="1" stroke-dasharray="4 3"/>
+                <line x1="82" y1="17.6" x2="86" y2="17.6" stroke="var(--ep-chart-label)" stroke-width="1" stroke-dasharray="4 3"/>
+                <line x1="103" y1="27.2" x2="107" y2="27.2" stroke="var(--ep-chart-label)" stroke-width="1" stroke-dasharray="4 3"/>
+                <line x1="124" y1="41.6" x2="128" y2="41.6" stroke="var(--ep-chart-label)" stroke-width="1" stroke-dasharray="4 3"/>
+              </svg>
+            </span>
+            <span class="ep-kpi__caption">Plan $2.90 &rarr; actual $2.84</span>
+          </a>
+        
+          <a class="ep-kpi ep-kpi--chart" href="dashboard.html?m=attendance">
+            <span class="ep-kpi__label">Attendance</span>
+            <span class="ep-kpi__head">
+              <span class="ep-kpi__value">92.8%</span>
+              <span class="ep-kpi__delta ep-up">&#9650; 0.4 pts</span>
+            </span>
+            <span class="ep-kpi__heat" role="img"
+                   aria-label="Attendance for the last twenty-one days against a 92 percent target. Four days fell short, the worst at 89.6 percent.">
+                <span style="background:var(--ep-chart-1);opacity:0.18"></span>
+                <span style="background:var(--ep-chart-1);opacity:0.18"></span>
+                <span style="background:var(--ep-chart-1);opacity:0.18"></span>
+                <span style="background:var(--ep-chart-1);opacity:0.18"></span>
+                <span style="background:var(--ep-chart-1);opacity:0.45"></span>
+                <span style="background:var(--ep-chart-1);opacity:0.18"></span>
+                <span style="background:var(--ep-chart-1);opacity:0.18"></span>
+                <span style="background:var(--ep-chart-1);opacity:0.18"></span>
+                <span style="background:var(--ep-chart-6);opacity:0.73"></span>
+                <span style="background:var(--ep-chart-1);opacity:0.18"></span>
+                <span style="background:var(--ep-chart-1);opacity:0.18"></span>
+                <span style="background:var(--ep-chart-1);opacity:0.18"></span>
+                <span style="background:var(--ep-chart-6);opacity:1.00"></span>
+                <span style="background:var(--ep-chart-1);opacity:0.18"></span>
+                <span style="background:var(--ep-chart-1);opacity:0.18"></span>
+                <span style="background:var(--ep-chart-1);opacity:0.18"></span>
+                <span style="background:var(--ep-chart-1);opacity:0.25"></span>
+                <span style="background:var(--ep-chart-1);opacity:0.18"></span>
+                <span style="background:var(--ep-chart-1);opacity:0.18"></span>
+                <span style="background:var(--ep-chart-1);opacity:0.18"></span>
+                <span style="background:var(--ep-chart-1);opacity:0.18"></span>
+                </span>
+            <span class="ep-kpi__caption">Target 92% &middot; 4 of 21 days short</span>
+          </a>
+        </div>
+      <div class="ep-home-body">
+        <div class="ep-home-body__feed">
+
+          <section class="ep-section">
+            <div class="ep-section__head">
+              <h2 class="ep-h-section">Needs a decision</h2>
+            </div>
+
+            <div class="ep-card ep-card--signal">
+              <div class="ep-signal">
+                <div class="ep-signal__main">
+                  <div class="ep-row ep-gap-3">
+                    <span class="ep-badge ep-badge--severity">BREACHED</span>
+                    <span class="ep-t-2xs ep-t-muted">Threshold breached &middot; 22 min ago</span>
+                  </div>
+                  <h3 class="ep-signal__title">On-Time Delivery fell to 87% &mdash; 3 pts below floor</h3>
+                  <p class="ep-signal__body">Eleven of the fourteen late orders are on Unit 2. The drop began on Tuesday.</p>
+                  <div class="ep-signal__actions">
+                    <a class="ep-btn ep-btn--primary ep-btn--sm" href="dashboard.html?d=delivery">Investigate</a>
+                    <button class="ep-btn ep-btn--ghost ep-btn--sm" type="button" data-ep-dismiss=".ep-card--signal">Mute for today</button>
+                  </div>
+                </div>
+                <div class="ep-signal__viz">
+                  <svg viewBox="0 0 120 60" preserveAspectRatio="none" aria-hidden="true">
+                    <polyline points="0,18 30,22 60,30 90,42 120,50" fill="none"
+                              stroke="var(--ep-chart-1)" stroke-width="2"
+                              vector-effect="non-scaling-stroke"/>
+                  </svg>
+                  <span class="ep-signal__viz-scale">90% floor</span>
+                  </div>
+                </div>
+            </div>
+          </section>
+
+          <section class="ep-section">
+            <div class="ep-section__head">
+              <h2 class="ep-h-section">What changed</h2>
+              <a class="ep-btn ep-btn--link" href="report-library.html">See all</a>
+            </div>
+
+            <div class="ep-feed-row">
+              <span class="ep-feed-row__icon" data-ep-icon="alert" data-ep-icon-size="15"></span>
+              <span class="ep-feed-row__text">
+                <span class="ep-feed-row__title">Quality inspection sync delayed by 46 minutes</span>
+                <span class="ep-feed-row__meta">Figures may lag &middot; 5 h ago</span>
+              </span>
+              <button class="ep-feed-row__cta" type="button" data-ep-action="retry">Retry</button>
+            </div>
+            <div class="ep-feed-row">
+              <span class="ep-feed-row__icon ep-feed-row__icon--accent" data-ep-icon="check-circle" data-ep-icon-size="15"></span>
+              <span class="ep-feed-row__text">
+                <span class="ep-feed-row__title">Production Pulse (Daily) delivered</span>
+                <span class="ep-feed-row__meta">4 recipients &middot; 6 h ago</span>
+              </span>
+              <a class="ep-feed-row__cta" href="report-viewer.html">Open</a>
+            </div>
+            <div class="ep-feed-row">
+              <span class="ep-feed-row__icon ep-feed-row__icon--accent" data-ep-icon="globe" data-ep-icon-size="15"></span>
+              <span class="ep-feed-row__text">
+                <span class="ep-feed-row__title">R. Shah shared &ldquo;Delivery Performance&rdquo; with you</span>
+                <span class="ep-feed-row__meta">Dashboard &middot; yesterday</span>
+              </span>
+              <a class="ep-feed-row__cta" href="dashboard.html?d=delivery">View</a>
+            </div>
+          </section>
+
+          <div class="ep-card ep-card--primer">
+            <div class="ep-primer__viewport" data-ep-slider>
+              <div class="ep-primer__track" data-ep-slider-track>
+                <div class="ep-primer__slide" data-ep-slider-slide>
+                  <span class="ep-primer__title">Pulse watches, you decide</span>
+                  <p class="ep-primer__body">Set a threshold once and Pulse tells you the moment it moves.</p>
+                </div>
+                <div class="ep-primer__slide" data-ep-slider-slide>
+                  <span class="ep-primer__title">Send the finding, not a screenshot</span>
+                  <p class="ep-primer__body">Share any level as a live link with the filters intact.</p>
+                </div>
+                <div class="ep-primer__slide" data-ep-slider-slide>
+                  <span class="ep-primer__title">Ask in words</span>
+                  <p class="ep-primer__body">The assistant answers with the chart it read the answer off.</p>
+                </div>
+              </div>
+              <div class="ep-dots" aria-label="Choose a slide">
+                <button class="ep-is-active" type="button" data-ep-slider-dot aria-label="Show slide 1 of 3"></button>
+                <button type="button" data-ep-slider-dot aria-label="Show slide 2 of 3"></button>
+                <button type="button" data-ep-slider-dot aria-label="Show slide 3 of 3"></button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="ep-home-body__side">
+
+          <div class="ep-card ep-card--snug">
+            <div class="ep-section__head">
+              <h2 class="ep-h-section">Jump back in</h2>
+            </div>
+            <div class="ep-list-card">
+              <a class="ep-list-card__row" href="dashboard.html?d=production">
+                <span class="ep-badge ep-badge--kind ep-badge--kind-accent">DASH</span>
+                <span class="ep-list-card__label">Production Overview</span>
+                <span class="ep-list-card__age">2 h</span>
+              </a>
+              <a class="ep-list-card__row" href="report-viewer.html">
+                <span class="ep-badge ep-badge--kind">REPORT</span>
+                <span class="ep-list-card__label">Production Pulse (Daily)</span>
+                <span class="ep-list-card__age">1 d</span>
+              </a>
+              <a class="ep-list-card__row" href="dashboard.html?d=quality">
+                <span class="ep-badge ep-badge--kind ep-badge--kind-accent">DASH</span>
+                <span class="ep-list-card__label">Quality</span>
+                <span class="ep-list-card__age">3 d</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="ep-card ep-card--snug">
+            <div class="ep-section__head">
+              <h2 class="ep-h-section">Deliveries today</h2>
+            </div>
+            <div class="ep-stat">
+              <span class="ep-stat__value">6</span>
+              <span class="ep-stat__label">Scheduled reports</span>
+              <span class="ep-stat__note">4 sent &middot; 2 due after 18:00</span>
+            </div>
+            <div class="ep-note">
+              <span class="ep-shrink0" data-ep-icon="alert" data-ep-icon-size="14"></span>
+              <span>One delivery bounced this week. The address is in the run history.</span>
+            </div>
+          </div>
+
+          <div class="ep-card ep-card--snug">
+            <div class="ep-section__head">
+              <h2 class="ep-h-section">Shared with you</h2>
+            </div>
+            <div class="ep-list-card">
+              <a class="ep-list-card__row" href="dashboard.html?d=delivery">
+                <span class="ep-badge ep-badge--kind ep-badge--kind-accent">DASH</span>
+                <span class="ep-list-card__label">Delivery Performance</span>
+                <span class="ep-list-card__age">1 d</span>
+              </a>
+              <a class="ep-list-card__row" href="report-library.html">
+                <span class="ep-badge ep-badge--kind">REPORT</span>
+                <span class="ep-list-card__label">Line Efficiency Tracker</span>
+                <span class="ep-list-card__age">4 d</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="ep-build-strip">
+        <span>EPIC Pulse &middot; Version 4.2.0 &middot; Build 20261218.3</span>
+        <span>Supported browsers: Edge 120+, Chrome 120+, Firefox 121+</span>
+        <span>Support: pulse.support@epicgroup.com</span>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<div data-ep-mount="overlays"></div>
+
+<script src="ui-kit/js/ep-hooks.js"></script>
+<script src="ui-kit/js/ep-dialog.js"></script>
+<script src="app-config.js"></script>
+<script src="ui-kit/js/ep-icons.js"></script>
+<script src="ui-kit/js/ep-menus.js"></script>
+<script src="ui-kit/js/ep-datepicker.js"></script>
+<script src="ui-kit/js/ep-shell.js"></script>
+<script src="ui-kit/js/ep-overlays.js"></script>
+<script src="ui-kit/js/ep-app.js"></script>
+</body>
+</html>

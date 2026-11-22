@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Production Pulse (Daily) · EPIC Pulse</title>
+<link rel="icon" href="favicon.svg">
+
+<link rel="stylesheet" href="ui-kit/css/ep-fonts.css">
+<link rel="stylesheet" href="ui-kit/css/ep-tokens.css">
+<link rel="stylesheet" href="ui-kit/css/ep-reset.css">
+<link rel="stylesheet" href="ui-kit/css/ep-base.css">
+<link rel="stylesheet" href="ui-kit/css/ep-controls.css">
+<link rel="stylesheet" href="ui-kit/css/ep-surfaces.css">
+<link rel="stylesheet" href="ui-kit/css/ep-data.css">
+<link rel="stylesheet" href="ui-kit/css/ep-shell.css">
+<link rel="stylesheet" href="ui-kit/css/ep-overlays.css">
+<link rel="stylesheet" href="ui-kit/css/ep-screens.css">
+<link rel="stylesheet" href="ui-kit/css/ep-extended.css">
+<script src="ui-kit/js/ep-theme.js"></script>
+</head>
+
+<body data-ep-nav="viewer" data-ep-crumb="LIBRARY" data-ep-title="Production Pulse (Daily)"
+      data-ep-period="17 Dec 2026" data-ep-asof="18 Dec 06:15"
+      data-ep-assistant-ctx="Production Pulse (Daily) · Unit 2 · 17 Dec"
+      data-ep-export-subject="Production Pulse · Unit 2 · 17 Dec"
+      data-ep-run-report="Production Pulse (Daily)"
+      data-ep-schedule-subject="Production Pulse (Daily) · report">
+
+<div class="ep-app">
+  <div data-ep-mount="sidebar"></div>
+  <div class="ep-app__main">
+    <div data-ep-mount="topbar"></div>
+
+    <main class="ep-page">
+
+      <div class="ep-detail-head">
+        <div class="ep-detail-head__titles">
+          <h1 class="ep-detail-head__name">Production Pulse (Daily)</h1>
+          <p class="ep-detail-head__meta">Run 06:15 &middot; 8,412 rows &middot; owned by Production</p>
+        </div>
+        <div class="ep-detail-head__actions">
+          <button class="ep-btn ep-btn--ghost" type="button" data-ep-open="schedule">Subscribe</button>
+          <button class="ep-btn ep-btn--primary" type="button" data-ep-open="run">Run report</button>
+        </div>
+      </div>
+
+      <div class="ep-facts">
+        <div class="ep-facts__item"><span class="ep-facts__label">REFRESH</span>
+          <span class="ep-facts__value">Daily, 06:00</span></div>
+        <div class="ep-facts__item"><span class="ep-facts__label">TYPICAL ROWS</span>
+          <span class="ep-facts__value">8,000&ndash;9,000</span></div>
+        <div class="ep-facts__item"><span class="ep-facts__label">FORMATS</span>
+          <span class="ep-facts__value">PDF &middot; XLSX &middot; CSV</span></div>
+        <div class="ep-facts__item"><span class="ep-facts__label">SUBSCRIBERS</span>
+          <span class="ep-facts__value">18</span></div>
+      </div>
+
+      <div class="ep-viewer-bar">
+        <div class="ep-segmented" data-ep-segmented="reportview" role="group" aria-label="View">
+          <button class="ep-segmented__btn" type="button" data-ep-seg="summary">Summary</button>
+          <button class="ep-segmented__btn ep-is-active" type="button" data-ep-seg="table">Table</button>
+        </div>
+        <div class="ep-spacer"></div>
+        <button class="ep-btn ep-btn--ghost ep-btn--sm" type="button" data-ep-menu="groupby"
+                aria-expanded="false">
+          Group: <span data-ep-menu-label>Customer</span>
+          <span class="ep-caret" data-ep-icon="chevron-down" data-ep-icon-size="10"></span>
+        </button>
+        <button class="ep-btn ep-btn--ghost ep-btn--sm" type="button" data-ep-menu="columns"
+                aria-expanded="false">
+          Columns
+          <span class="ep-caret" data-ep-icon="chevron-down" data-ep-icon-size="10"></span>
+        </button>
+        <button class="ep-btn ep-btn--ghost ep-btn--sm" type="button" data-ep-menu="density"
+                aria-expanded="false">
+          Density: <span data-ep-menu-label>Comfortable</span>
+          <span class="ep-caret" data-ep-icon="chevron-down" data-ep-icon-size="10"></span>
+        </button>
+        <button class="ep-btn ep-btn--ghost ep-btn--sm" type="button" data-ep-open="export">Export</button>
+        <button class="ep-btn ep-btn--primary ep-btn--sm" type="button" data-ep-action="share">Share</button>
+      </div>
+
+      <div data-ep-panel-group="reportview" data-ep-panel-key="table">
+        <div class="ep-table-wrap ep-table-wrap--card">
+          <table class="ep-dtable ep-dtable--wide" data-ep-columns-table>
+            <caption class="ep-sr-only">Open orders for 17 December, grouped by customer</caption>
+            <thead>
+              <tr><th>Order</th><th>Customer</th><th>Line</th><th>Stage</th><th>Promised</th>
+                  <th class="ep-cell-num">Units</th></tr>
+            </thead>
+            <tbody>
+            <tr class="ep-dtable__group"><td colspan="6">Northvale &mdash; 2 orders &middot; 6,000 units</td></tr>
+            <tr><td class="ep-cell-strong">SO-4821</td><td>Northvale</td><td>Line 1</td><td>Cutting</td><td><span class="ep-cell-late">5 Dec</span></td><td class="ep-cell-num">4,200</td></tr>
+            <tr><td class="ep-cell-strong">SO-4824</td><td>Northvale</td><td>Line 2</td><td>Sewing</td><td><span class="ep-cell-late">12 Dec</span></td><td class="ep-cell-num">1,800</td></tr>
+            <tr class="ep-dtable__group"><td colspan="6">Harrow &amp; Co &mdash; 2 orders &middot; 8,550 units</td></tr>
+            <tr><td class="ep-cell-strong">SO-4822</td><td>Harrow &amp; Co</td><td>Line 3</td><td>Finishing</td><td>14 Dec</td><td class="ep-cell-num">6,400</td></tr>
+            <tr><td class="ep-cell-strong">SO-4827</td><td>Harrow &amp; Co</td><td>Line 1</td><td>Packing</td><td>15 Dec</td><td class="ep-cell-num">2,150</td></tr>
+            <tr class="ep-dtable__group"><td colspan="6">Castlereagh &mdash; 2 orders &middot; 5,140 units</td></tr>
+            <tr><td class="ep-cell-strong">SO-4823</td><td>Castlereagh</td><td>Line 4</td><td>Cutting</td><td>17 Dec</td><td class="ep-cell-num">3,900</td></tr>
+            <tr><td class="ep-cell-strong">SO-4829</td><td>Castlereagh</td><td>Line 6</td><td>Sewing</td><td>19 Dec</td><td class="ep-cell-num">1,240</td></tr>
+            <tr class="ep-dtable__total"><td>Total</td><td>6 orders</td><td></td><td></td><td></td><td class="ep-cell-num">19,690</td></tr>            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div data-ep-panel-group="reportview" data-ep-panel-key="summary" hidden>
+          <div class="ep-paper-tray">
+            <article class="ep-paper">
+              <div class="ep-paper__head">
+                <span class="ep-paper__brandplate">
+                  <img class="ep-paper__logo" src="assets/epic-pulse-logo-navy-tight.png" alt="EPIC Pulse">
+                </span>
+                <span class="ep-paper__stamp">18 DEC 2026 &middot; UNIT 2</span>
+              </div>
+              <h2 class="ep-paper__title">Production Pulse (Daily)</h2>
+              <p class="ep-paper__lede" style="margin:0">Output, efficiency and downtime by line for 17 December,
+                with every order still open against its promised date.</p>
+              <div class="ep-paper__table">
+                <div class="ep-paper__tr ep-paper__tr--head">
+                  <span class="ep-paper__th">ORDER</span>
+                  <span class="ep-paper__th">CUSTOMER</span>
+                  <span class="ep-paper__th">PROMISED</span>
+                  <span class="ep-paper__th ep-paper__th--num">LATE</span>
+                </div>
+                <div class="ep-paper__tr">
+                  <span class="ep-paper__td">PO-88412</span>
+                  <span class="ep-paper__td">Northvale</span>
+                  <span class="ep-paper__td">5 Dec</span>
+                  <span class="ep-paper__td ep-paper__td--flag">23 d</span>
+                </div>
+                <div class="ep-paper__tr">
+                  <span class="ep-paper__td">PO-88376</span>
+                  <span class="ep-paper__td">Northvale</span>
+                  <span class="ep-paper__td">12 Dec</span>
+                  <span class="ep-paper__td ep-paper__td--flag">14 d</span>
+                </div>
+                <div class="ep-paper__tr">
+                  <span class="ep-paper__td">PO-88301</span>
+                  <span class="ep-paper__td">Harrow &amp; Co</span>
+                  <span class="ep-paper__td">14 Dec</span>
+                  <span class="ep-paper__td ep-paper__td--num">11 d</span>
+                </div>
+                <div class="ep-paper__tr">
+                  <span class="ep-paper__td">PO-88295</span>
+                  <span class="ep-paper__td">Harrow &amp; Co</span>
+                  <span class="ep-paper__td">15 Dec</span>
+                  <span class="ep-paper__td ep-paper__td--num">9 d</span>
+                </div>
+                <div class="ep-paper__tr">
+                  <span class="ep-paper__td">PO-88244</span>
+                  <span class="ep-paper__td">Castlereagh</span>
+                  <span class="ep-paper__td">17 Dec</span>
+                  <span class="ep-paper__td ep-paper__td--num">6 d</span>
+                </div>
+              </div>
+              <svg width="100%" height="70" viewBox="0 0 344 70" fill="none"
+                   preserveAspectRatio="none" role="img" aria-label="At-risk orders by ship week">
+                <line x1="4" y1="60" x2="340" y2="60" stroke="var(--ep-paper-rule)" stroke-width="1"/>
+                <rect x="14" y="30.4" width="34" height="29.6" fill="var(--ep-chart-1)"/>
+                <rect x="60" y="17.3" width="34" height="42.7" fill="var(--ep-chart-2)"/>
+                <rect x="106" y="37.0" width="34" height="23.0" fill="var(--ep-chart-1)"/>
+                <rect x="152" y="45.2" width="34" height="14.8" fill="var(--ep-chart-3)"/>
+                <rect x="198" y="33.7" width="34" height="26.3" fill="var(--ep-chart-1)"/>
+                <rect x="244" y="48.5" width="34" height="11.5" fill="var(--ep-chart-4)"/>
+                <rect x="290" y="53.4" width="34" height="6.6" fill="var(--ep-chart-4)"/>
+              </svg>
+              <div class="ep-paper__foot">
+                <span>Source: ERP Production &middot; synced 16:10</span>
+                <span>Page 1 of 3</span>
+              </div>
+            </article>
+          </div>      </div>
+
+      <div class="ep-build-strip">
+        <span>EPIC Pulse &middot; Version 4.2.0 &middot; Build 20261218.3</span>
+        <span>Supported browsers: Edge 120+, Chrome 120+, Firefox 121+</span>
+        <span>Support: pulse.support@epicgroup.com</span>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<div data-ep-mount="overlays"></div>
+
+<script src="ui-kit/js/ep-hooks.js"></script>
+<script src="ui-kit/js/ep-dialog.js"></script>
+<script src="app-config.js"></script>
+<script src="ui-kit/js/ep-icons.js"></script>
+<script src="ui-kit/js/ep-menus.js"></script>
+<script src="ui-kit/js/ep-datepicker.js"></script>
+<script src="ui-kit/js/ep-shell.js"></script>
+<script src="ui-kit/js/ep-overlays.js"></script>
+<script src="ui-kit/js/ep-app.js"></script>
+</body>
+</html>

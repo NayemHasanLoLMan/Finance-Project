@@ -1,0 +1,109 @@
+/* EPIC Pulse UI Kit — authentication screens
+   Layer 11. The sign-in split and the auth card.
+   The brand panel keeps the brand dark surface in both themes, so its
+   colours deliberately do not follow the theme.
+   Requires: tokens, reset, base, controls, surfaces. */
+
+/* Sign In
+   Brand panel keeps the brand dark surface in both themes. */
+
+.ep-auth {
+  display: flex;
+  min-height: 100vh;
+  background: var(--ep-surface-app);
+}
+
+/* Brand panel and auth panel split the viewport evenly. The design source drew the
+   brand panel at a fixed 560 of 1440 (39%); an even split keeps the two
+   halves balanced at any desktop width. */
+.ep-auth__brand {
+  flex: 0 0 50%;
+  max-width: 50%;
+  background: var(--ep-brand-gradient-diag);
+  padding: 48px 46px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.ep-auth__brand img { width: 280px; height: auto; object-fit: contain; }
+
+.ep-auth__panel {
+  flex: 0 0 50%;
+  max-width: 50%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px 22px;
+  gap: 32px;
+}
+
+.ep-auth__panel--top { justify-content: flex-start; padding-top: 80px; }
+
+.ep-auth-card {
+  width: 100%;
+  max-width: 392px;
+  background: var(--ep-surface-card);
+  border-radius: var(--ep-radius-lg);
+  box-shadow: var(--ep-shadow-card);
+  border: 1px solid var(--ep-border-subtle);
+  padding: 34px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  /* auto on BOTH sides, not justify-content: the panel's second child is the
+     build strip, and centring the panel would centre the pair. Auto margins
+     take the free space around the card alone, so the card sits in the middle
+     of the room above the footer and the footer stays on the floor. With no
+     footer the same rule centres the card in the whole panel. */
+  margin-block: auto;
+}
+
+/* 560 rather than the design source's 520: the even split gives the panel more room,
+   and the extra 40px keeps the longest workspace meta line from wrapping */
+.ep-auth-stack { width: 100%; max-width: 560px; display: flex; flex-direction: column; gap: 20px; }
+
+.ep-auth-divider { display: flex; align-items: center; gap: 12px; }
+.ep-auth-divider span:first-child,
+.ep-auth-divider span:last-child { height: 1px; flex: 1; background: var(--ep-border-subtle); }
+.ep-auth-divider em { font-size: 10.5px; color: var(--ep-text-muted); letter-spacing: .6px; font-style: normal; }
+
+.ep-auth-banner {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  background: color-mix(in oklab, var(--ep-accent-secondary) 12%, transparent);
+  border: 1px solid color-mix(in oklab, var(--ep-accent-secondary) 30%, transparent);
+  border-radius: 12px;
+  padding: 11px 13px;
+  font-size: 11.5px;
+  color: var(--ep-text-body);
+  line-height: 1.5;
+}
+
+.ep-auth-banner.ep-is-shown { display: flex; }
+
+@media (max-width: 1023px) {
+  /* stacked: the even split no longer applies, and 50% must not become a
+     height once the flex direction turns */
+  .ep-auth { flex-direction: column; min-height: 100vh; }
+  .ep-auth__brand,
+  .ep-auth__panel { flex: none; max-width: none; width: auto; }
+  .ep-auth__brand { padding: 30px 24px; }
+  .ep-auth__brand img { width: 200px; }
+  .ep-auth__panel { padding: 24px 18px 18px; gap: 24px; }
+  .ep-auth__panel--top { padding-top: 24px; }
+  .ep-auth-card { margin-block: 0; padding: 26px 22px; }
+}
+
+@media (max-width: 479px) {
+  .ep-auth__brand { padding: 24px 18px; }
+  .ep-auth__brand img { width: 168px; }
+  .ep-auth-card { padding: 22px 18px; gap: 15px; }
+  .ep-h-display { font-size: 22px; }
+}
+

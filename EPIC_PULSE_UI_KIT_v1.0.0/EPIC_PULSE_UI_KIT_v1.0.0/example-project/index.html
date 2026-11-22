@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in · EPIC Pulse</title>
+<link rel="icon" href="favicon.svg">
+
+<link rel="stylesheet" href="ui-kit/css/ep-fonts.css">
+<link rel="stylesheet" href="ui-kit/css/ep-tokens.css">
+<link rel="stylesheet" href="ui-kit/css/ep-reset.css">
+<link rel="stylesheet" href="ui-kit/css/ep-base.css">
+<link rel="stylesheet" href="ui-kit/css/ep-controls.css">
+<link rel="stylesheet" href="ui-kit/css/ep-surfaces.css">
+<link rel="stylesheet" href="ui-kit/css/ep-auth.css">
+<script src="ui-kit/js/ep-theme.js"></script>
+</head>
+
+<body>
+
+<main class="ep-auth">
+  <div class="ep-auth__brand">
+    <img src="assets/epic-pulse-logo.png" alt="EPIC Pulse">
+  </div>
+  <div class="ep-auth__panel">
+    <form class="ep-auth-card" data-ep-goto="home.html">
+      <div class="ep-col ep-gap-2">
+        <h1 class="ep-h-display">Sign in</h1>
+        <p class="ep-t-xs ep-t-muted" style="margin:0">Welcome back</p>
+      </div>
+      <div class="ep-auth-banner" data-ep-auth-banner role="status">
+        <span class="ep-shrink0" data-ep-icon="alert" data-ep-icon-size="15"></span>
+        <span data-ep-auth-banner-text></span>
+      </div>
+      <div class="ep-auth-stack">
+        <label class="ep-field">
+          <span class="ep-field__label ep-field__label--auth">Email</span>
+          <input class="ep-input ep-input--auth" type="email" autocomplete="username"
+                 placeholder="you@epicgroup.com" value="a.karim@epicgroup.com">
+        </label>
+        <div class="ep-field">
+          <label class="ep-field__label ep-field__label--auth" for="password">Password</label>
+          <span class="ep-input ep-input--auth">
+            <input id="password" type="password" autocomplete="current-password" value="pulse-2026">
+            <button class="ep-input__reveal" type="button" data-ep-reveal="password"
+                    aria-label="Show password" data-ep-icon="eye" data-ep-icon-size="16"></button>
+          </span>
+        </div>
+        <button class="ep-btn ep-btn--primary ep-btn--tall ep-btn--block" type="submit">Sign in</button>
+        <div class="ep-auth-divider"><span></span><em>OR</em><span></span></div>
+        <a class="ep-btn ep-btn--sso ep-btn--tall ep-btn--block" href="home.html">
+          <span data-ep-icon="microsoft" data-ep-icon-size="16"></span>
+          Continue with Microsoft
+        </a>
+      </div>
+    </form>
+
+    <div class="ep-build-strip">
+      <span>EPIC Pulse &mdash; Thin Client &middot; Version 4.2.0 &middot; Build 20261218.3 &middot; &copy; 2026 Epic Group</span>
+      <span>Supported browsers: Edge 120+, Chrome 120+, Firefox 121+ &middot; Allow pop-ups for report exports</span>
+      <span>Support: pulse.support@epicgroup.com &middot; ext. 4180</span>
+    </div>
+  </div>
+</main>
+
+<script src="ui-kit/js/ep-hooks.js"></script>
+<script src="app-config.js"></script>
+<script src="ui-kit/js/ep-icons.js"></script>
+<script src="ui-kit/js/ep-app.js"></script>
+</body>
+</html>

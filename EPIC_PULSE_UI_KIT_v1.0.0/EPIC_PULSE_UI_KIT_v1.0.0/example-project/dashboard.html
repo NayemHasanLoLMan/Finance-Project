@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Production Overview · EPIC Pulse</title>
+<link rel="icon" href="favicon.svg">
+
+<link rel="stylesheet" href="ui-kit/css/ep-fonts.css">
+<link rel="stylesheet" href="ui-kit/css/ep-tokens.css">
+<link rel="stylesheet" href="ui-kit/css/ep-reset.css">
+<link rel="stylesheet" href="ui-kit/css/ep-base.css">
+<link rel="stylesheet" href="ui-kit/css/ep-controls.css">
+<link rel="stylesheet" href="ui-kit/css/ep-surfaces.css">
+<link rel="stylesheet" href="ui-kit/css/ep-data.css">
+<link rel="stylesheet" href="ui-kit/css/ep-shell.css">
+<link rel="stylesheet" href="ui-kit/css/ep-overlays.css">
+<link rel="stylesheet" href="ui-kit/css/ep-screens.css">
+<link rel="stylesheet" href="ui-kit/css/ep-extended.css">
+<script src="ui-kit/js/ep-theme.js"></script>
+</head>
+
+<body data-ep-nav="dash-production" data-ep-crumb="ANALYTICS" data-ep-title="Production Overview"
+      data-ep-period="Dec 2026" data-ep-asof="18 Dec 4:41 PM"
+      data-ep-assistant-ctx="Production Overview · Unit 2 · Dec"
+      data-ep-export-subject="Production Overview · Unit 2 · Dec">
+
+<div class="ep-app">
+  <div data-ep-mount="sidebar"></div>
+  <div class="ep-app__main">
+    <div data-ep-mount="topbar"></div>
+
+    <main class="ep-page">
+
+      <div class="ep-page-head">
+        <div class="ep-col ep-gap-2">
+          <h1 class="ep-h-page">Production Overview</h1>
+          <p class="ep-t-md ep-t-muted" style="margin:0">Unit 2 &middot; December 2026 &middot; refreshed 4:41 PM</p>
+        </div>
+        <div class="ep-page-head__actions">
+          <button class="ep-btn ep-btn--ghost ep-btn--pill-lg" type="button" data-ep-menu="dashboards"
+                  aria-expanded="false">
+            <span data-ep-menu-label>Production Overview</span>
+            <span class="ep-caret" data-ep-icon="chevron-down" data-ep-icon-size="10"></span>
+          </button>
+          <button class="ep-btn ep-btn--ghost ep-btn--pill-lg" type="button" data-ep-open="filters">Filters</button>
+          <button class="ep-btn ep-btn--primary ep-btn--pill-lg" type="button" data-ep-open="export">Export</button>
+        </div>
+      </div>
+
+      <div class="ep-toolbar">
+        <span class="ep-chip ep-chip--active">
+          <button type="button" data-ep-menu="units" aria-expanded="false" aria-label="Edit the unit filter">
+            <span data-ep-menu-label>Unit 2</span>
+          </button>
+        </span>
+        <span class="ep-chip">
+          <button type="button" data-ep-menu="lines" aria-expanded="false" aria-label="Edit the line filter">
+            <span data-ep-menu-label>Lines 1&ndash;6</span>
+          </button>
+        </span>
+        <span class="ep-chip">
+          <button type="button" data-ep-menu="shifts" aria-expanded="false" aria-label="Edit the shift filter">
+            <span data-ep-menu-label>Shift A + B</span>
+          </button>
+        </span>
+        <span class="ep-chip">
+          <button type="button" data-ep-menu="period" aria-expanded="false" aria-label="Edit the comparison">
+            <span data-ep-menu-label>vs previous period</span>
+          </button>
+        </span>
+        <button class="ep-btn ep-btn--link ep-t-xs" type="button" data-ep-menu="filterdims"
+                aria-expanded="false">+ Add filter</button>
+        <div class="ep-spacer"></div>
+        <button class="ep-btn ep-btn--link ep-t-xs" type="button" data-ep-action="reset-filters">Reset filters</button>
+      </div>
+
+      <div class="ep-grid ep-grid--4 ep-grid--16">
+        <a class="ep-kpi ep-kpi--target" href="dashboard.html?m=output">
+          <span class="ep-kpi__label">Output vs Plan</span>
+          <span class="ep-kpi__head">
+            <span class="ep-kpi__value">94.2%</span>
+            <span class="ep-kpi__delta ep-up">&#9650; 1.4 pts</span>
+          </span>
+          <span class="ep-meter">
+            <span class="ep-meter__fill" style="width:94%"></span>
+            <span class="ep-meter__target" style="left:100%"></span>
+          </span>
+          <span class="ep-kpi__note">Plan 4,200/day &middot; 5 days short</span>
+        </a>
+        <a class="ep-kpi ep-kpi--target" href="dashboard.html?m=otd">
+          <span class="ep-kpi__label">On-Time Delivery</span>
+          <span class="ep-kpi__head">
+            <span class="ep-kpi__value">87.0%</span>
+            <span class="ep-kpi__delta ep-down">&#9660; 3.0 pts</span>
+          </span>
+          <span class="ep-meter">
+            <span class="ep-meter__fill" style="width:87%"></span>
+            <span class="ep-meter__target" style="left:90%"></span>
+          </span>
+          <span class="ep-kpi__note">Floor 90% &middot; below floor</span>
+        </a>
+        <a class="ep-kpi ep-kpi--target" href="dashboard.html?m=cost">
+          <span class="ep-kpi__label">Cost per Unit</span>
+          <span class="ep-kpi__head">
+            <span class="ep-kpi__value">$2.84</span>
+            <span class="ep-kpi__delta ep-down">&#9660; $0.06</span>
+          </span>
+          <span class="ep-meter">
+            <span class="ep-meter__fill" style="width:82%"></span>
+            <span class="ep-meter__target" style="left:86%"></span>
+          </span>
+          <span class="ep-kpi__note">Target $2.90 &middot; under target</span>
+        </a>
+        <a class="ep-kpi ep-kpi--target" href="dashboard.html?m=dhu">
+          <span class="ep-kpi__label">DHU</span>
+          <span class="ep-kpi__head">
+            <span class="ep-kpi__value">2.4</span>
+            <span class="ep-kpi__delta ep-up">&#9650; 0.2</span>
+          </span>
+          <span class="ep-meter">
+            <span class="ep-meter__fill" style="width:96%"></span>
+            <span class="ep-meter__target" style="left:80%"></span>
+          </span>
+          <span class="ep-kpi__note">Ceiling 2.0 &middot; above ceiling</span>
+        </a>
+      </div>
+
+      <div class="ep-state-switch" role="group" aria-label="Preview state"
+           data-ep-segmented="dashstate">
+        <span class="ep-state-switch__label">State</span>
+        <button class="ep-btn ep-btn--xs ep-btn--ghost ep-is-active" type="button" data-ep-seg="ready">Ready</button>
+        <button class="ep-btn ep-btn--xs ep-btn--ghost" type="button" data-ep-seg="loading">Loading</button>
+        <button class="ep-btn ep-btn--xs ep-btn--ghost" type="button" data-ep-seg="empty">No data</button>
+        <button class="ep-btn ep-btn--xs ep-btn--ghost" type="button" data-ep-seg="error">Tile failure</button>
+      </div>
+
+      <div data-ep-panel-group="dashstate" data-ep-panel-key="ready">
+        <div class="ep-dash-grid">
+          <article class="ep-tile ep-dg-tall">
+            <div class="ep-tile__head"><div class="ep-tile__titles">
+              <span class="ep-tile__title">Output by line</span>
+              <span class="ep-tile__sub">Units, this week</span></div>
+              <div class="ep-tile__actions">
+                <button class="ep-tile__action" type="button" aria-label="Filter to Output by line"
+                        data-ep-icon="filter" data-ep-open="filters"></button>
+                <button class="ep-tile__action" type="button" data-ep-menu="tilekebab"
+                        aria-expanded="false" aria-label="More actions for Output by line" data-ep-icon="kebab"></button>
+              </div>
+            </div>
+            <div class="ep-bar-rows">
+              <div class="ep-bar-row"><span class="ep-bar-row__label">Line 1</span>
+                <span class="ep-bar-row__track"><span class="ep-bar-row__fill"
+                      style="width:100%;background:var(--ep-chart-1)"></span></span>
+                <span class="ep-bar-row__value">412</span></div>
+              <div class="ep-bar-row"><span class="ep-bar-row__label">Line 2</span>
+                <span class="ep-bar-row__track"><span class="ep-bar-row__fill"
+                      style="width:82%;background:var(--ep-chart-1)"></span></span>
+                <span class="ep-bar-row__value">338</span></div>
+              <div class="ep-bar-row"><span class="ep-bar-row__label">Line 3</span>
+                <span class="ep-bar-row__track"><span class="ep-bar-row__fill"
+                      style="width:64%;background:var(--ep-chart-1)"></span></span>
+                <span class="ep-bar-row__value">264</span></div>
+              <div class="ep-bar-row"><span class="ep-bar-row__label">Line 4</span>
+                <span class="ep-bar-row__track"><span class="ep-bar-row__fill"
+                      style="width:54%;background:var(--ep-chart-2)"></span></span>
+                <span class="ep-bar-row__value">224</span></div>
+              <div class="ep-bar-row"><span class="ep-bar-row__label">Line 5</span>
+                <span class="ep-bar-row__track"><span class="ep-bar-row__fill"
+                      style="width:41%;background:var(--ep-chart-2)"></span></span>
+                <span class="ep-bar-row__value">169</span></div>
+              <div class="ep-bar-row"><span class="ep-bar-row__label">Line 6</span>
+                <span class="ep-bar-row__track"><span class="ep-bar-row__fill"
+                      style="width:28%;background:var(--ep-chart-3)"></span></span>
+                <span class="ep-bar-row__value">115</span></div>
+            </div>
+          </article>
+          <article class="ep-tile ep-dg-a">
+            <div class="ep-tile__head"><div class="ep-tile__titles">
+              <span class="ep-tile__title">Output vs plan</span>
+              <span class="ep-tile__sub">Last 12 weeks</span></div>
+              <div class="ep-tile__actions">
+                <button class="ep-tile__action" type="button" aria-label="Filter to Output vs plan"
+                        data-ep-icon="filter" data-ep-open="filters"></button>
+                <button class="ep-tile__action" type="button" data-ep-menu="tilekebab"
+                        aria-expanded="false" aria-label="More actions for Output vs plan" data-ep-icon="kebab"></button>
+              </div>
+            </div>
+            <div class="ep-chart ep-chart--md">
+              <svg viewBox="0 0 320 150" preserveAspectRatio="none" aria-label="Output against plan by week">
+                <line x1="0" y1="52" x2="320" y2="52" stroke="var(--ep-chart-label)" stroke-width="1" stroke-dasharray="5 4"/>
+                <rect x="8"   y="66"  width="18" height="84" fill="var(--ep-chart-1)"/>
+                <rect x="34"  y="80"  width="18" height="70" fill="var(--ep-chart-1)"/>
+                <rect x="60"  y="58"  width="18" height="92" fill="var(--ep-chart-1)"/>
+                <rect x="86"  y="92"  width="18" height="58" fill="var(--ep-chart-2)"/>
+                <rect x="112" y="48"  width="18" height="102" fill="var(--ep-chart-1)"/>
+                <rect x="138" y="70"  width="18" height="80" fill="var(--ep-chart-1)"/>
+                <rect x="164" y="100" width="18" height="50" fill="var(--ep-chart-2)"/>
+                <rect x="190" y="62"  width="18" height="88" fill="var(--ep-chart-1)"/>
+                <rect x="216" y="44"  width="18" height="106" fill="var(--ep-chart-1)"/>
+                <rect x="242" y="86"  width="18" height="64" fill="var(--ep-chart-2)"/>
+                <rect x="268" y="54"  width="18" height="96" fill="var(--ep-chart-1)"/>
+                <rect x="294" y="74"  width="18" height="76" fill="var(--ep-chart-1)"/>
+              </svg>
+            </div>
+          </article>
+          <article class="ep-tile ep-dg-b">
+            <div class="ep-tile__head"><div class="ep-tile__titles">
+              <span class="ep-tile__title">On-Time Delivery</span>
+              <span class="ep-tile__sub">Against a 90% floor</span></div>
+              <div class="ep-tile__actions">
+                <button class="ep-tile__action" type="button" aria-label="Filter to On-Time Delivery"
+                        data-ep-icon="filter" data-ep-open="filters"></button>
+                <button class="ep-tile__action" type="button" data-ep-menu="tilekebab"
+                        aria-expanded="false" aria-label="More actions for On-Time Delivery" data-ep-icon="kebab"></button>
+              </div>
+            </div>
+            <div class="ep-chart ep-chart--md">
+              <svg viewBox="0 0 320 150" fill="none" preserveAspectRatio="none" aria-label="On-Time Delivery falling through its floor">
+                <line x1="0" y1="60" x2="320" y2="60" stroke="var(--ep-chart-label)" stroke-width="1" stroke-dasharray="5 4"/>
+                <path d="M6,42 L58,48 L110,58 L162,70 L214,86 L266,104 L314,118" fill="none"
+                      stroke="var(--ep-chart-1)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="314" cy="118" r="4" fill="var(--ep-chart-1)"/>
+              </svg>
+            </div>
+          </article>
+          <article class="ep-tile ep-dg-c">
+            <div class="ep-tile__head"><div class="ep-tile__titles">
+              <span class="ep-tile__title">Defects by cause</span>
+              <span class="ep-tile__sub">Share of the month</span></div>
+              <div class="ep-tile__actions">
+                <button class="ep-tile__action" type="button" aria-label="Filter to Defects by cause"
+                        data-ep-icon="filter" data-ep-open="filters"></button>
+                <button class="ep-tile__action" type="button" data-ep-menu="tilekebab"
+                        aria-expanded="false" aria-label="More actions for Defects by cause" data-ep-icon="kebab"></button>
+              </div>
+            </div>
+            <div class="ep-chart ep-chart--md">
+              <svg viewBox="0 0 320 150" preserveAspectRatio="none" aria-label="Defects by cause, largest first">
+                <rect x="8"   y="30"  width="70" height="120" fill="var(--ep-chart-1)"/>
+                <rect x="86"  y="66"  width="70" height="84"  fill="var(--ep-chart-2)"/>
+                <rect x="164" y="96"  width="70" height="54"  fill="var(--ep-chart-3)"/>
+                <rect x="242" y="120" width="70" height="30"  fill="var(--ep-chart-4)"/>
+              </svg>
+            </div>
+          </article>
+          <article class="ep-tile ep-dg-d">
+            <div class="ep-tile__head"><div class="ep-tile__titles">
+              <span class="ep-tile__title">Lead time</span>
+              <span class="ep-tile__sub">Days, rolling</span></div>
+              <div class="ep-tile__actions">
+                <button class="ep-tile__action" type="button" aria-label="Filter to Lead time"
+                        data-ep-icon="filter" data-ep-open="filters"></button>
+                <button class="ep-tile__action" type="button" data-ep-menu="tilekebab"
+                        aria-expanded="false" aria-label="More actions for Lead time" data-ep-icon="kebab"></button>
+              </div>
+            </div>
+            <div class="ep-chart ep-chart--md">
+              <svg viewBox="0 0 320 150" fill="none" preserveAspectRatio="none" aria-label="Lead time, rolling average">
+                <path d="M6,110 L58,96 L110,104 L162,78 L214,88 L266,62 L314,70" fill="none"
+                      stroke="var(--ep-chart-5)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </article>
+        </div>      </div>
+
+      <div data-ep-panel-group="dashstate" data-ep-panel-key="loading" hidden>
+        <div class="ep-dash-grid">
+          <div class="ep-tile ep-dg-tall">
+            <div class="ep-skel-chart">
+              <span class="ep-skel ep-skel--title" style="width:34%"></span>
+              <div class="ep-skel-chart__body">
+                <span class="ep-skel ep-skel--col" style="height:60%"></span>
+                <span class="ep-skel ep-skel--col" style="height:85%"></span>
+                <span class="ep-skel ep-skel--col" style="height:45%"></span>
+                <span class="ep-skel ep-skel--col" style="height:72%"></span>
+              </div>
+            </div>
+          </div>
+          <div class="ep-tile ep-dg-a">
+            <div class="ep-skel-chart">
+              <span class="ep-skel ep-skel--title" style="width:44%"></span>
+              <div class="ep-skel-chart__body">
+                <span class="ep-skel ep-skel--col" style="height:70%"></span>
+                <span class="ep-skel ep-skel--col" style="height:50%"></span>
+                <span class="ep-skel ep-skel--col" style="height:88%"></span>
+                <span class="ep-skel ep-skel--col" style="height:62%"></span>
+              </div>
+            </div>
+          </div>
+          <div class="ep-tile ep-dg-b">
+            <div class="ep-skel-tile">
+              <span class="ep-skel ep-skel--line" style="width:40%"></span>
+              <span class="ep-skel ep-skel--value" style="width:44%"></span>
+              <span class="ep-skel ep-skel--bar" style="width:100%"></span>
+            </div>
+          </div>
+          <div class="ep-tile ep-dg-c">
+            <div class="ep-skel-tile">
+              <span class="ep-skel ep-skel--line" style="width:52%"></span>
+              <span class="ep-skel ep-skel--value" style="width:38%"></span>
+              <span class="ep-skel ep-skel--bar" style="width:100%"></span>
+            </div>
+          </div>
+          <div class="ep-tile ep-dg-d">
+            <div class="ep-skel-tile">
+              <span class="ep-skel ep-skel--line" style="width:46%"></span>
+              <span class="ep-skel ep-skel--value" style="width:50%"></span>
+              <span class="ep-skel ep-skel--bar" style="width:100%"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-ep-panel-group="dashstate" data-ep-panel-key="empty" hidden>
+        <div class="ep-card">
+          <div class="ep-state">
+            <span class="ep-state__icon" data-ep-icon="filter" data-ep-icon-size="28"></span>
+            <span class="ep-state__title">Nothing matches <span data-ep-empty-filter-name>Shift C</span></span>
+            <p class="ep-state__body" style="margin:0">Unit 2 ran no C shifts in December. Clear the shift
+              filter to see the other 18 days, or widen the period.</p>
+            <div class="ep-state__actions">
+              <button class="ep-btn ep-btn--ghost" type="button" data-ep-action="reset-filters">Clear filters</button>
+              <button class="ep-btn ep-btn--link" type="button" data-ep-open="filters">Open filters</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-ep-panel-group="dashstate" data-ep-panel-key="error" hidden>
+        <div class="ep-dash-grid">
+          <article class="ep-tile ep-dg-tall">
+            <div class="ep-tile__head"><div class="ep-tile__titles">
+              <span class="ep-tile__title">Output by line</span>
+              <span class="ep-tile__sub">Units, this week</span></div>
+            </div>
+            <div class="ep-bar-rows">
+              <div class="ep-bar-row"><span class="ep-bar-row__label">Line 1</span>
+                <span class="ep-bar-row__track"><span class="ep-bar-row__fill"
+                      style="width:100%;background:var(--ep-chart-1)"></span></span>
+                <span class="ep-bar-row__value">412</span></div>
+              <div class="ep-bar-row"><span class="ep-bar-row__label">Line 2</span>
+                <span class="ep-bar-row__track"><span class="ep-bar-row__fill"
+                      style="width:82%;background:var(--ep-chart-1)"></span></span>
+                <span class="ep-bar-row__value">338</span></div>
+              <div class="ep-bar-row"><span class="ep-bar-row__label">Line 3</span>
+                <span class="ep-bar-row__track"><span class="ep-bar-row__fill"
+                      style="width:64%;background:var(--ep-chart-1)"></span></span>
+                <span class="ep-bar-row__value">264</span></div>
+            </div>
+          </article>
+          <div class="ep-tile ep-tile-error ep-dg-a">
+            <span class="ep-tile-error__icon" data-ep-icon="alert" data-ep-icon-size="16"></span>
+            <span class="ep-tile-error__title">Defects by cause couldn&rsquo;t load</span>
+            <span class="ep-tile-error__body">The quality source timed out. The other tiles are unaffected
+              and their figures are current.</span>
+            <button class="ep-btn ep-btn--primary ep-btn--tall" type="button" data-ep-action="retry">Retry this tile</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ep-build-strip">
+        <span>EPIC Pulse &middot; Version 4.2.0 &middot; Build 20261218.3</span>
+        <span>Supported browsers: Edge 120+, Chrome 120+, Firefox 121+</span>
+        <span>Support: pulse.support@epicgroup.com</span>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<div data-ep-mount="overlays"></div>
+
+<script src="ui-kit/js/ep-hooks.js"></script>
+<script src="ui-kit/js/ep-dialog.js"></script>
+<script src="app-config.js"></script>
+<script src="ui-kit/js/ep-icons.js"></script>
+<script src="ui-kit/js/ep-menus.js"></script>
+<script src="ui-kit/js/ep-datepicker.js"></script>
+<script src="ui-kit/js/ep-shell.js"></script>
+<script src="ui-kit/js/ep-overlays.js"></script>
+<script src="ui-kit/js/ep-app.js"></script>
+</body>
+</html>
