@@ -1,25 +1,46 @@
 """Configuration and constants for the City Bank advice pipeline."""
 
+import logging
 import os
 from datetime import datetime
 from pathlib import Path
+from typing import Any, Dict, List, Tuple
+
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 
 # 1. Base paths
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# External dependencies (optional dotenv)
+# External dependencies (optional dotenv). python-dotenv is listed as an
+# optional convenience in requirements.txt; the pipeline runs without it.
 try:
     from dotenv import load_dotenv
     load_dotenv(BASE_DIR / ".env")
 except ImportError:
     pass
 
+
+def _env_float(name: str, default: float) -> float:
+    """Read a positive float from the environment with a safe fallback."""
+    raw = os.getenv(name)
+    if raw is None or not raw.strip():
+        return default
+    try:
+        value = float(raw)
+    except ValueError:
+        print(f"Warning: {name}={raw!r} is not a number; using default {default}.", flush=True)
+        return default
+    if value <= 0:
+        print(f"Warning: {name} must be positive; using default {default}.", flush=True)
+        return default
+    return value
+
+
 INPUT_DIR = (BASE_DIR / os.getenv("INPUT_DIR", "inputs")).resolve()
 OUTPUT_JSON = (BASE_DIR / os.getenv("OUTPUT_JSON", "data/records.json")).resolve()
 TARGET_EXCEL = (BASE_DIR / os.getenv("TARGET_EXCEL", "City_Bank_Advice_Summary.xlsx")).resolve()
 REGISTRY_PATH = (BASE_DIR / os.getenv("REGISTRY_PATH", "data/registry.json")).resolve()
-POLL_INTERVAL = float(os.getenv("POLL_INTERVAL", "3.0"))
+POLL_INTERVAL = _env_float("POLL_INTERVAL", 3.0)
 
 # Active bank folders — focused exclusively on City Bank PLC
 BANK_FOLDERS = ["CITY"]
@@ -159,9 +180,55 @@ CITY_TOTAL_COMPONENTS = {
     "IWLC Issuance": ("Contract Registration Fee (BDT)", "Certificate Charge (BDT)"),
 }
 
-# Backward compatibility alias
+# Canonical column letter for every header of every City sheet.
+CITY_SHEET_COLUMN_LETTERS: Dict[str, Dict[str, str]] = {
+    sheet: {header: letter for letter, header, _width in columns}
+    for sheet, columns in CITY_SHEET_COLUMNS.items()
+}
+
+
+def _validate_sheet_templates() -> None:
+    """Fail fast if the sheet templates and USD-equivalent maps drift apart."""
+    for sheet, columns in CITY_SHEET_COLUMNS.items():
+        headers = [header for _, header, _ in columns]
+        letters = [letter for letter, _, _ in columns]
+        expected_letters = [
+            chr(ord("A") + index) if index < 26 else "A" + chr(ord("A") + index - 26)
+            for index in range(len(headers))
+        ]
+        if letters != expected_letters:
+            raise ValueError(f"Column letters of '{sheet}' do not match its order.")
+
+        usd_map = CITY_USD_EQUIVALENT_COLUMNS[sheet]
+        for usd_header, (bdt_header, rate_header) in usd_map.items():
+            for required in (bdt_header, rate_header):
+                if required not in headers:
+                    raise ValueError(
+                        f"'{sheet}': USD column '{usd_header}' references missing "
+                        f"source column '{required}'."
+                    )
+            if usd_header not in headers:
+                raise ValueError(f"'{sheet}': USD column '{usd_header}' is not a template header.")
+
+        bdt_headers = {h for h in headers if h.endswith("(BDT)")}
+        converted = {pair[0] for pair in usd_map.values()}
+        if bdt_headers != converted:
+            raise ValueError(
+                f"'{sheet}': BDT columns without a USD equivalent mapping: "
+                f"{sorted(bdt_headers ^ converted)}."
+            )
+
+        keys = CITY_DOCUMENT_KEYS[sheet]
+        for key in keys:
+            if key not in headers:
+                raise ValueError(f"'{sheet}': document key '{key}' is not a template header.")
+
+
+_validate_sheet_templates()
+
+# Backward compatibility aliases (kept for external scripts).
 UNIFIED_HEADERS = CITY_ACCEPTANCE_HEADERS
-EXTRA_COLUMNS = []
+EXTRA_COLUMNS: List[Any] = []
 
 # Excel Formatting Constants
 FMT_CURRENCY = r"#,##0.00"
